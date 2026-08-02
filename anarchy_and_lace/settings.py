@@ -96,8 +96,6 @@ INSTALLED_APPS = [
     "core",
     "catalog",
     "manager",
-    "cart",
-    "payments",  # Added payments app
     "orders.apps.OrdersConfig",
     "reviews.apps.ReviewsConfig",
 ]
