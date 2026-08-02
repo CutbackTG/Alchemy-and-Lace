@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Kimono Fabric History | Anarchy &amp; Lace{% endblock %}
+
+{% block content %}
+<article class="glass-panel history-page">
+  <p class="mag-kicker">Cloth with a past</p>
+  <h1>The history within kimono fabric</h1>
+
+  <p>Kimono textiles carry more than pattern and colour. They preserve traces of changing taste, craft traditions, ceremony, family life, and the hands that made and wore them.</p>
+
+  <h2>From robe to textile archive</h2>
+  <p>The kimono developed through centuries of Japanese dress history. Its apparently simple construction created a broad surface for weaving, dyeing, embroidery, resist work, and symbolic pattern. Motifs could evoke seasons, plants, animals, landscapes, good fortune, status, or personal identity.</p>
+
+  <h2>Silk, pattern, and skilled hands</h2>
+  <p>Many surviving kimono fabrics were produced through painstaking processes. Woven brocades, hand-dyed silk, shibori resist techniques, yuzen decoration, metallic thread, and embroidery transformed cloth into something closer to a portable artwork.</p>
+
+  <h2>Reclamation rather than erasure</h2>
+  <p>Anarchy &amp; Lace works with reclaimed Japanese textiles, allowing damaged, unworn, or fragmented cloth to continue in a new form. The aim is not to disguise age, but to honour it. Small irregularities, repairs, fading, and variation are part of the material's biography.</p>
+
+  <h2>A new garment, an older story</h2>
+  <p>Each finished piece joins contemporary design with inherited fabric. No two lengths of reclaimed cloth behave identically, so every garment emerges as a singular collaboration between past craft and present construction.</p>
+
+  <div class="pd-actions">
+    <a class="button button--gold" href="{% url 'catalog:product_list' %}">View the gallery</a>
+    <a class="button" href="{% url 'home:contact' %}">Contact the studio</a>
+  </div>
+</article>
+{% endblock %}

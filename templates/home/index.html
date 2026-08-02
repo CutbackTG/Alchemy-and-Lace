@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Anarchy &amp; Lace | Reclaimed Kimono Textile Garments{% endblock %}
+
+{% block content %}
+<section class="hero glass-panel">
+  <div class="hero-copy">
+    <p class="mag-kicker">Reclaimed textile atelier</p>
+    <h1>Japanese kimono fabrics, reimagined.</h1>
+    <p>One-of-a-kind garments created from reclaimed Japanese textiles. Explore the gallery, discover the history held within the cloth, or contact the studio about a piece.</p>
+    <div class="pd-actions">
+      <a class="button button--gold" href="{% url 'catalog:product_list' %}">View the gallery</a>
+      <a class="button" href="{% url 'home:kimono_history' %}">Explore the fabrics</a>
+    </div>
+  </div>
+</section>
+
+{% if featured_products %}
+<section class="shop" aria-labelledby="featured-heading">
+  <div class="shop-top glass-panel">
+    <p class="mag-kicker">Selected works</p>
+    <h2 id="featured-heading">From the gallery</h2>
+  </div>
+  <div class="product-grid">
+    {% for product in featured_products %}
+      <a class="product-card" href="{% url 'catalog:product_detail' slug=product.slug %}">
+        <div class="product-media">
+          {% with img=product.images.first %}
+            {% if img %}
+              <img src="{{ img.image.url }}" alt="{{ img.alt_text|default:product.name }}" class="product-img" loading="lazy">
+            {% elif product.image %}
+              <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-img" loading="lazy">
+            {% else %}
+              <div class="img-placeholder">Image coming soon</div>
+            {% endif %}
+          {% endwith %}
+        </div>
+        <div class="product-meta"><h2 class="product-title">{{ product.name }}</h2></div>
+      </a>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+{% endblock %}
