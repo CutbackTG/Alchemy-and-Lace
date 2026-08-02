@@ -37,12 +37,19 @@ ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
     ".herokuapp.com",
+    "anarchyandlace.co.uk",
+    "www.anarchyandlace.co.uk",
+    "anarchy-and-lace-0b8e43b4f722.herokuapp.com",
 ]
 ALLOWED_HOSTS += env_list("DJANGO_ALLOWED_HOSTS")
 
 CSRF_TRUSTED_ORIGINS = env_list(
     "DJANGO_CSRF_TRUSTED_ORIGINS",
-    default=["https://*.herokuapp.com"],
+    default=[
+        "https://*.herokuapp.com",
+        "https://anarchyandlace.co.uk",
+        "https://www.anarchyandlace.co.uk",
+    ],
 )
 
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
