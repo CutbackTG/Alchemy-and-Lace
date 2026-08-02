@@ -1,45 +1,42 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Anarchy &amp; Lace | Reclaimed Kimono Textile Garments{% endblock %}
-
 {% block content %}
-<section class="hero glass-panel">
-  <div class="hero-copy">
-    <p class="mag-kicker">Reclaimed textile atelier</p>
-    <h1>Japanese kimono fabrics, reimagined.</h1>
-    <p>One-of-a-kind garments created from reclaimed Japanese textiles. Explore the gallery, discover the history held within the cloth, or contact the studio about a piece.</p>
-    <div class="pd-actions">
-      <a class="button button--gold" href="{% url 'catalog:product_list' %}">View the gallery</a>
-      <a class="button" href="{% url 'home:kimono_history' %}">Explore the fabrics</a>
+  <!-- HERO FABRIC GALLERY PANEL -->
+  <div class="glass-panel hero__panel hero__panel--gallery">
+    <div class="fabric-card__img" style="background-image:url('{% static 'background_images/fabrics/kimono_fabric.png' %}');"></div>
+  </div>
+
+  <div class="hero__grid">
+    <div class="glass-panel hero-card">
+      <h3 class="hero-card__title">Explore our garment gallery</h3>
+      <p>Curated pieces with a strong silhouette and a soft footprint</p>
+
+      <a href="{% url 'catalog:product_list' %}" class="image_button image_button--link" style="background-image:url('{% static 'img/range/shop_button.webp' %}');"></a>
+
+      <a class="nav-link hero-card__link" href="{% url 'catalog:product_list' %}">View the gallery →</a>
+    </div>
+
+    <div class="glass-panel hero-card">
+      <h3 class="hero-card__title">Authentic, Vintage Japanese Kimono Silk</h3>
+      <p>Preserving historic beauty and art through fashion</p>
+
+      <a href="{% url 'home:kimono_history' %}" class="image_button image_button--link" style="background-image:url('{% static 'img/kimono/kimono_button.webp' %}');"></a>
+
+      <a class="nav-link hero-card__link" href="{% url 'home:kimono_history' %}">Kimono Fabric →</a>
+    </div>
+
+    <div class="glass-panel hero-card">
+      <h3 class="hero-card__title">Bespoke Commissions</h3>
+      <p>Have an idea for a personal piece, custom project or special event?</p>
+
+      <a href="{% url 'home:contact' %}" class="image_button image_button--link" style="background-image:url('{% static 'img/commissions/commissions_button.webp' %}');"></a>
+
+      <a class="nav-link hero-card__link" href="{% url 'home:contact' %}">Share your vision →</a>
     </div>
   </div>
-</section>
 
-{% if featured_products %}
-<section class="shop" aria-labelledby="featured-heading">
-  <div class="shop-top glass-panel">
-    <p class="mag-kicker">Selected works</p>
-    <h2 id="featured-heading">From the gallery</h2>
+  <div class="hero__footer">
+    <div class="kintsugi-line"></div>
   </div>
-  <div class="product-grid">
-    {% for product in featured_products %}
-      <a class="product-card" href="{% url 'catalog:product_detail' slug=product.slug %}">
-        <div class="product-media">
-          {% with img=product.images.first %}
-            {% if img %}
-              <img src="{{ img.image.url }}" alt="{{ img.alt_text|default:product.name }}" class="product-img" loading="lazy">
-            {% elif product.image %}
-              <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-img" loading="lazy">
-            {% else %}
-              <div class="img-placeholder">Image coming soon</div>
-            {% endif %}
-          {% endwith %}
-        </div>
-        <div class="product-meta"><h2 class="product-title">{{ product.name }}</h2></div>
-      </a>
-    {% endfor %}
-  </div>
-</section>
-{% endif %}
 {% endblock %}
