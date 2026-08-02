@@ -1,24 +1,36 @@
-from django.shortcuts import render, get_object_or_404
-from .models import Product, Collection
+from django.shortcuts import get_object_or_404, render
+
+from .models import Collection, Product
 
 
 def product_list(request):
-    products = Product.objects.filter(is_active=True)
+    products = Product.objects.filter(is_active=True).prefetch_related("images", "collections")
     collections = Collection.objects.all()
-
     collection_slug = request.GET.get("collection")
+
     if collection_slug:
         products = products.filter(collections__slug=collection_slug)
 
-    context = {
-        "products": products,
-        "collections": collections,
-        "current_collection": collection_slug,
-    }
-    return render(request, "catalog/product_list.html", context)
+    return render(
+        request,
+        "catalog/product_list.html",
+        {
+            "products": products.distinct(),
+            "collections": collections,
+            "current_collection": collection_slug,
+            "active_menu_item": "gallery",
+        },
+    )
 
 
 def product_detail(request, slug):
-    product = get_object_or_404(Product, slug=slug, is_active=True)
-    context = {"product": product}
-    return render(request, "catalog/product_detail.html", context)
+    product = get_object_or_404(
+        Product.objects.prefetch_related("images", "collections"),
+        slug=slug,
+        is_active=True,
+    )
+    return render(
+        request,
+        "catalog/product_detail.html",
+        {"product": product, "active_menu_item": "gallery"},
+    )

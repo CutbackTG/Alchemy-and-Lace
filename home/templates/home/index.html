@@ -9,7 +9,7 @@
 
   <div class="hero__grid">
     <div class="glass-panel hero-card">
-      <h3 class="hero-card__title">Shop our exclusive range</h3>
+      <h3 class="hero-card__title">Gallery our exclusive range</h3>
       <p>Curated pieces with a strong silhouette and a soft footprint</p>
 
       <a href="{% url 'catalog:product_list' %}" class="image_button image_button--link" style="background-image:url('{% static 'img/range/shop_button.webp' %}');"></a>
@@ -37,20 +37,7 @@
   </div>
 
   <!-- CUSTOMER REVIEWS SECTION -->
-  {% if featured_reviews %}
-    <section class="reviews-section">
-      <h2>What our customers say</h2>
-
-      <div class="reviews-grid">
-        {% for review in featured_reviews %}
-          <div class="glass-panel review-card">
-            <div class="review-stars" aria-label="{{ review.rating }} out of 5 stars">
-              {% for _ in '12345'|make_list %}
-                {% if forloop.counter <= review.rating %}
-                  <span class="star star--on">★</span>
-                {% else %}
-                  <span class="star star--off">★</span>
-                {% endif %}
+  
               {% endfor %}
             </div>
 

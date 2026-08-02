@@ -1,43 +1,45 @@
-{% extends 'base.html' %}
-{% load static %}
+{% extends "base.html" %}
+
+{% block title %}Gallery | Anarchy &amp; Lace{% endblock %}
 
 {% block content %}
-  <section class="shop">
-    <div class="shop-top glass-panel">
-      <header class="shop-header">
-        <h1>Unique Kimono fabric Garments</h1>
-        <p>Vintage Japanese textiles, reworked into unique art pieces.</p>
-      </header>
+<section class="shop">
+  <div class="shop-top glass-panel">
+    <header class="shop-header">
+      <p class="mag-kicker">The collection</p>
+      <h1>Kimono Textile Gallery</h1>
+      <p>One-of-a-kind garments made from reclaimed Japanese textiles. This gallery is for viewing and enquiries only.</p>
+    </header>
 
-      <nav class="collections">
+    {% if collections %}
+      <nav class="collections" aria-label="Filter gallery by collection">
         <a href="{% url 'catalog:product_list' %}" class="{% if not current_collection %}active{% endif %}">All</a>
         {% for collection in collections %}
           <a href="?collection={{ collection.slug }}" class="{% if current_collection == collection.slug %}active{% endif %}">{{ collection.name }}</a>
         {% endfor %}
       </nav>
-    </div>
+    {% endif %}
+  </div>
 
-    <div class="product-grid">
-      {% for product in products %}
-        <a class="product-card" href="{% url 'catalog:product_detail' slug=product.slug %}">
-          <div class="product-media">
-            {% with img=product.images.all|first %}
-              {% if img and img.image %}
-                <img src="{{ img.image.url }}" alt="{{ product.name }}" class="product-img" />
-                <small style="display:block; padding:6px 10px; color:#666; word-break:break-all;">{{ img.image.url }}</small>
-              {% else %}
-                <div class="img-placeholder">No image yet</div>
-              {% endif %}
-            {% endwith %}
-          </div>
-
-          <div class="product-meta">
-            <h2 class="product-title">{{ product.name }}</h2>
-          </div>
-        </a>
-      {% empty %}
-        <p>No products found.</p>
-      {% endfor %}
-    </div>
-  </section>
+  <div class="product-grid">
+    {% for product in products %}
+      <a class="product-card" href="{% url 'catalog:product_detail' slug=product.slug %}">
+        <div class="product-media">
+          {% with img=product.images.first %}
+            {% if img %}
+              <img src="{{ img.image.url }}" alt="{{ img.alt_text|default:product.name }}" class="product-img" loading="lazy">
+            {% elif product.image %}
+              <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-img" loading="lazy">
+            {% else %}
+              <div class="img-placeholder">Image coming soon</div>
+            {% endif %}
+          {% endwith %}
+        </div>
+        <div class="product-meta"><h2 class="product-title">{{ product.name }}</h2></div>
+      </a>
+    {% empty %}
+      <div class="glass-panel"><p>The next pieces are being prepared for the gallery.</p></div>
+    {% endfor %}
+  </div>
+</section>
 {% endblock %}
