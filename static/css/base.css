@@ -1665,3 +1665,131 @@ textarea {
     border-color: #bbb;
   }
 }
+
+/* =========================================================
+   14. MOBILE MENU VISIBILITY HOTFIX
+   Strong foreground drawer with reliable contrast
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .topbar {
+    isolation: isolate;
+  }
+
+  .nav-mobile {
+    z-index: 10030;
+  }
+
+  .nav-mobile__panel {
+    z-index: 10040;
+    padding: 12px;
+    gap: 6px;
+
+    background:
+      linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--panel-bg-strong) 98%, var(--gold) 2%),
+        var(--panel-bg-strong)
+      );
+
+    border: 1px solid color-mix(in srgb, var(--gold) 72%, var(--panel-border));
+    box-shadow:
+      0 2px 0 rgba(255, 255, 255, 0.08) inset,
+      0 26px 70px rgba(0, 0, 0, 0.58);
+
+    opacity: 1;
+    backdrop-filter: blur(24px) saturate(135%);
+    -webkit-backdrop-filter: blur(24px) saturate(135%);
+  }
+
+  .nav-mobile__panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: var(--panel-bg-strong);
+    opacity: 0.96;
+  }
+
+  .nav-mobile__panel .nav-link {
+    min-height: 52px;
+    padding: 13px 15px;
+
+    justify-content: flex-start;
+
+    border: 1px solid transparent;
+    border-radius: 12px;
+
+    background: rgb(var(--panel-rgb) / 7%);
+    color: var(--ink);
+
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+
+    text-shadow: none;
+  }
+
+  .nav-mobile__panel .nav-link + .nav-link {
+    margin-top: 2px;
+  }
+
+  .nav-mobile__panel .nav-link:hover,
+  .nav-mobile__panel .nav-link:focus-visible,
+  .nav-mobile__panel .nav-link.active {
+    border-color: color-mix(in srgb, var(--gold) 70%, var(--panel-border));
+    background: color-mix(in srgb, var(--gold) 18%, var(--panel-bg-strong));
+    color: var(--ink);
+    transform: none;
+  }
+
+  .nav-mobile__divider {
+    margin: 7px 4px;
+    opacity: 1;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in srgb, var(--gold) 82%, transparent),
+      transparent
+    );
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-mobile__panel {
+    top: calc(var(--nav-height) + 6px);
+    right: 10px;
+    left: 10px;
+
+    width: auto;
+    max-height: calc(100dvh - var(--nav-height) - 20px);
+
+    border-radius: 18px;
+  }
+
+  .nav-mobile__panel .nav-link {
+    min-height: 56px;
+    font-size: 1.05rem;
+  }
+}
+
+html[data-theme="light"] .nav-mobile__panel {
+  background: rgba(250, 247, 239, 0.98);
+}
+
+html[data-theme="dark"] .nav-mobile__panel {
+  background: rgba(10, 10, 10, 0.98);
+}
+
+@media (prefers-color-scheme: light) {
+  html:not([data-theme]) .nav-mobile__panel {
+    background: rgba(250, 247, 239, 0.98);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme]) .nav-mobile__panel {
+    background: rgba(10, 10, 10, 0.98);
+  }
+}
