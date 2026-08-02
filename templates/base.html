@@ -61,8 +61,8 @@
           {% if user.is_authenticated %}
             {% if user.is_staff %}
               <a class="nav-link {% if active_menu_item == 'dashboard' %}active{% endif %}" href="{% url 'manager:dashboard' %}">Dashboard</a>
-              <a class="nav-link {% if active_menu_item == 'orders' %}active{% endif %}" href="{% url 'manager:order_list' %}">Orders</a>
               <a class="nav-link {% if active_menu_item == 'manager_products' %}active{% endif %}" href="{% url 'manager:product_list' %}">Products</a>
+          {% endif %}
         </nav>
 
         <!-- Mobile menu -->
@@ -84,6 +84,7 @@
                 <a class="nav-link nav-link--block {% if active_menu_item == 'dashboard' %}active{% endif %}" href="{% url 'manager:dashboard' %}">Dashboard</a>
                 <a class="nav-link nav-link--block {% if active_menu_item == 'orders' %}active{% endif %}" href="{% url 'manager:order_list' %}">Orders</a>
                 <a class="nav-link nav-link--block {% if active_menu_item == 'manager_products' %}active{% endif %}" href="{% url 'manager:product_list' %}">Products</a>
+              {% endif %}
           </div>
         </details>
 
