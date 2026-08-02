@@ -49,7 +49,6 @@
 
   <div class="pd-info glass-panel">
     <h1 class="pd-title">{{ product.name }}</h1>
-    <p class="pd-price">£{{ product.price }}</p>
 
     {% if product.description %}
       <p class="pd-desc">{{ product.description }}</p>
@@ -64,16 +63,6 @@
         <li><strong>Size:</strong> {{ product.size }}</li>
       {% endif %}
     </ul>
-
-    <form method="post" action="{% url 'cart:add' product.id %}">
-      {% csrf_token %}
-      <input type="hidden" name="next" value="{{ request.get_full_path }}">
-      <div class="pd-actions">
-        <button class="button button--gold" type="submit">
-          Add to cart
-        </button>
-      </div>
-    </form>
 
     <!-- REVIEWS -->
     <div style="margin-top:24px;">
