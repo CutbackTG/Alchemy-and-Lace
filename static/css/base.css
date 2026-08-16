@@ -2225,3 +2225,11 @@ html[data-theme="dark"] .nav-mobile__panel {
 .nav-bag--mobile .nav-bag__count {
   margin-left: auto;
 }
+
+/* =========================================================
+   PRODUCT DETAIL BUTTON SPACING
+   ========================================================= */
+
+.pd-info .button + .button {
+  margin-top: 14px;
+}
