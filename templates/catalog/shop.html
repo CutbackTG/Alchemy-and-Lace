@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block title %}Shop | Anarchy &amp; Lace{% endblock %}
 
 {% block content %}
@@ -22,6 +22,7 @@
     <a
       href="{% url 'catalog:collection_detail' collection_handle='anarchy' %}"
       class="shop-choice__card shop-choice__card--anarchy"
+  style="--shop-card-image: url('{% static 'img/range/anarchy.webp' %}');"
     >
 
       <div class="shop-choice__content">
@@ -46,6 +47,7 @@
     <a
       href="{% url 'catalog:collection_detail' collection_handle='lace' %}"
       class="shop-choice__card shop-choice__card--lace"
+      style="--shop-card-image: url('{% static 'img/range/shop_button.webp' %}');"
     >
 
       <div class="shop-choice__content">
