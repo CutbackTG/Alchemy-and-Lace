@@ -108,3 +108,29 @@ def get_product_by_handle(handle):
     )
 
     return data["product"]
+
+def get_collection_by_handle(handle):
+    query = f"""
+    query GetCollection($handle: String!) {{
+      collection(handle: $handle) {{
+        id
+        title
+        handle
+        description
+        products(first: 50) {{
+          nodes {{
+            {PRODUCT_FIELDS}
+          }}
+        }}
+      }}
+    }}
+    """
+
+    data = shopify_query(
+        query,
+        {
+            "handle": handle,
+        },
+    )
+
+    return data["collection"]

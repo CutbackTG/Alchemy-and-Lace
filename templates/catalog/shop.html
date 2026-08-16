@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Shop | Anarchy &amp; Lace{% endblock %}
+
+{% block content %}
+
+<section class="shop-choice">
+
+  <div class="shop-choice__intro glass-panel">
+    <p class="mag-kicker">The collection</p>
+
+    <h1>Two Sides. One Story.</h1>
+
+    <p>
+      Choose your path through Anarchy &amp; Lace.
+    </p>
+  </div>
+
+
+  <div class="shop-choice__grid">
+
+    <a
+      href="{% url 'catalog:collection_detail' collection_handle='anarchy' %}"
+      class="shop-choice__card shop-choice__card--anarchy"
+    >
+
+      <div class="shop-choice__content">
+
+        <p class="mag-kicker">Raw / reconstructed / alternative</p>
+
+        <h2>Anarchy</h2>
+
+        <p>
+          Reworked garments, darker textiles and pieces with a sharper edge.
+        </p>
+
+        <span class="button button--gold">
+          Enter Anarchy
+        </span>
+
+      </div>
+
+    </a>
+
+
+    <a
+      href="{% url 'catalog:collection_detail' collection_handle='lace' %}"
+      class="shop-choice__card shop-choice__card--lace"
+    >
+
+      <div class="shop-choice__content">
+
+        <p class="mag-kicker">Silk / heritage / Japanese textiles</p>
+
+        <h2>Lace</h2>
+
+        <p>
+          One-of-a-kind garments created from reclaimed kimono silks and
+          decorative heritage textiles.
+        </p>
+
+        <span class="button button--gold">
+          Enter Lace
+        </span>
+
+      </div>
+
+    </a>
+
+  </div>
+
+</section>
+
+{% endblock %}
