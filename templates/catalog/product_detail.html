@@ -1,57 +1,75 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{{ product.name }} | Anarchy &amp; Lace{% endblock %}
+{% block title %}
+  {{ product.title }} | Anarchy &amp; Lace
+{% endblock %}
 
 {% block content %}
-<section class="pd">
-  <div class="pd-gallery glass-panel">
-    <div class="pd-viewerbar" aria-label="Image view controls">
-      <button type="button" class="pd-viewerbtn is-active" data-mode="fit">Fit</button>
-      <button type="button" class="pd-viewerbtn" data-mode="fill">Fill</button>
-    </div>
+  <section class="pd">
+    <div class="pd-gallery glass-panel">
+      <div class="pd-viewerbar" aria-label="Image view controls">
+        <button type="button" class="pd-viewerbtn is-active" data-mode="fit">Fit</button>
 
-    <div class="pd-main" aria-label="Main gallery image">
-      {% with first=product.images.first %}
-        {% if first %}
-          <img id="pdMainImg" class="pd-main-img" src="{{ first.image.url }}" alt="{{ first.alt_text|default:product.name }}" loading="eager">
-        {% elif product.image %}
-          <img id="pdMainImg" class="pd-main-img" src="{{ product.image.url }}" alt="{{ product.name }}" loading="eager">
+        <button type="button" class="pd-viewerbtn" data-mode="fill">Fill</button>
+      </div>
+
+      <div class="pd-main" aria-label="Main gallery image">
+        {% if product.featuredImage %}
+          <img id="pdMainImg" class="pd-main-img" src="{{ product.featuredImage.url }}" alt="{{ product.featuredImage.altText|default:product.title }}" loading="eager" />
         {% else %}
           <div class="pd-main-placeholder">Image coming soon</div>
         {% endif %}
-      {% endwith %}
-    </div>
-
-    {% if product.images.exists %}
-      <div class="pd-thumbs" aria-label="Additional gallery images">
-        {% for img in product.images.all %}
-          <button class="pd-thumb" type="button" data-src="{{ img.image.url }}" aria-label="View image {{ forloop.counter }}">
-            <img src="{{ img.image.url }}" alt="{{ img.alt_text|default:product.name }}" loading="lazy">
-          </button>
-        {% endfor %}
       </div>
-    {% endif %}
-  </div>
 
-  <div class="pd-info glass-panel">
-    <p class="mag-kicker">Gallery piece</p>
-    <h1 class="pd-title">{{ product.name }}</h1>
-    {% if product.description %}<div class="pd-desc">{{ product.description|linebreaks }}</div>{% endif %}
-
-    <ul class="pd-meta">
-      {% if product.fabric_origin %}<li><strong>Fabric:</strong> {{ product.fabric_origin }}</li>{% endif %}
-      {% if product.size %}<li><strong>Size:</strong> {{ product.size }}</li>{% endif %}
-      {% if product.fit_notes %}<li><strong>Fit:</strong> {{ product.fit_notes }}</li>{% endif %}
-      {% if product.care_instructions %}<li><strong>Care:</strong> {{ product.care_instructions }}</li>{% endif %}
-    </ul>
-
-    <div class="pd-actions">
-      <a class="button button--gold" href="{% url 'home:contact' %}">Enquire about this piece</a>
-      <a class="button" href="{% url 'catalog:product_list' %}">Back to gallery</a>
+      {% if product.images.nodes %}
+        <div class="pd-thumbs" aria-label="Additional gallery images">
+          {% for img in product.images.nodes %}
+            <button class="pd-thumb" type="button" data-src="{{ img.url }}" aria-label="View image {{ forloop.counter }}"><img src="{{ img.url }}" alt="{{ img.altText|default:product.title }}" loading="lazy" /></button>
+          {% endfor %}
+        </div>
+      {% endif %}
     </div>
-  </div>
-</section>
+
+    <div class="pd-info glass-panel">
+      <p class="mag-kicker">Gallery piece</p>
+
+      <h1 class="pd-title">{{ product.title }}</h1>
+
+      {% if product.descriptionHtml %}
+        <div class="pd-desc pd-description">{{ product.descriptionHtml|safe }}</div>
+      {% endif %}
+
+      {% if product.selectedOrFirstAvailableVariant %}
+        <div class="pd-meta">
+          <p>
+            <strong>Price:</strong>
+            £{{ product.selectedOrFirstAvailableVariant.price.amount|floatformat:2 }}
+          </p>
+          <p>
+            <strong>Availability:</strong>
+            {% if product.availableForSale %}
+              Available
+            {% else %}
+              Sold
+            {% endif %}
+          </p>
+        </div>
+      {% endif %}
+
+      <div class="pd-actions">
+        {% if product.availableForSale %}
+          <span class="button button--gold">Available</span>
+        {% else %}
+          <span class="button button--gold">Sold</span>
+        {% endif %}
+
+        <a class="button" href="{% url 'catalog:product_list' %}">Back to gallery</a>
+      </div>
+    </div>
+  </section>
 {% endblock %}
 
-{% block extra_js %}<script src="{% static 'js/product_detail.js' %}" defer></script>{% endblock %}
+{% block extra_js %}
+  <script src="{% static 'js/product_detail.js' %}" defer></script>
+{% endblock %}

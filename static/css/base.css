@@ -1793,3 +1793,30 @@ html[data-theme="dark"] .nav-mobile__panel {
     background: rgba(10, 10, 10, 0.98);
   }
 }
+
+.pd-description {
+    max-width: 760px;
+    line-height: 1.75;
+}
+
+.pd-description p {
+    margin: 0 0 1.25rem;
+}
+
+.pd-description p:last-child {
+    margin-bottom: 0;
+}
+
+.pd-description strong {
+    font-weight: 700;
+}
+
+.pd-description ul,
+.pd-description ol {
+    margin: 1rem 0 1.5rem;
+    padding-left: 1.5rem;
+}
+
+.pd-description li {
+    margin-bottom: 0.4rem;
+}

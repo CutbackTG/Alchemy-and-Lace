@@ -1,54 +1,37 @@
 {% extends "base.html" %}
 
-{% block title %}Gallery | Anarchy &amp; Lace{% endblock %}
+{% block title %}Shopify Test | Anarchy &amp; Lace{% endblock %}
 
 {% block content %}
 <section class="shop">
 
   <div class="shop-top glass-panel">
-
     <header class="shop-header">
-      <p class="mag-kicker">The collection</p>
-
-      <h1>Kimono Textile Gallery</h1>
-
-      <p>
-        One-of-a-kind garments made from reclaimed Japanese textiles.
-      </p>
-
-      <p>
-        Hand-stitched and individually curated for a sustainable and timeless wardrobe.
-      </p>
+      <p class="mag-kicker">Shopify connection</p>
+      <h1>Shopify Product Test</h1>
+      <p>Products below are being loaded directly from Shopify.</p>
     </header>
-
   </div>
 
   <div class="product-grid">
 
     {% for product in products %}
 
-      <a
-        class="product-card"
-        href="{% url 'catalog:product_detail' slug=product.handle %}"
-      >
+      <div class="product-card">
 
         <div class="product-media">
 
           {% if product.featuredImage %}
-
             <img
               src="{{ product.featuredImage.url }}"
               alt="{{ product.featuredImage.altText|default:product.title }}"
               class="product-img"
               loading="lazy"
             >
-
           {% else %}
-
             <div class="img-placeholder">
               Image coming soon
             </div>
-
           {% endif %}
 
         </div>
@@ -60,29 +43,27 @@
           </h2>
 
           {% if product.selectedOrFirstAvailableVariant %}
-
-            <p class="product-price">
+            <p>
               £{{ product.selectedOrFirstAvailableVariant.price.amount }}
             </p>
-
           {% endif %}
 
-          {% if not product.availableForSale %}
-
-            <p class="product-sold">
+          <p>
+            {% if product.availableForSale %}
+              Available
+            {% else %}
               Sold
-            </p>
-
-          {% endif %}
+            {% endif %}
+          </p>
 
         </div>
 
-      </a>
+      </div>
 
     {% empty %}
 
       <div class="glass-panel">
-        <p>The next pieces are being prepared for the gallery.</p>
+        <p>No Shopify products were returned.</p>
       </div>
 
     {% endfor %}

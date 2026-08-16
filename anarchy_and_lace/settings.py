@@ -7,8 +7,11 @@ from pathlib import Path
 
 import dj_database_url
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+from pathlib import Path
+from dotenv import load_dotenv
 
+BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR / ".env")
 
 def env_bool(name: str, default: bool = False) -> bool:
     return os.environ.get(name, str(default)).strip().lower() in {

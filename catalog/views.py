@@ -1,36 +1,33 @@
-from django.shortcuts import get_object_or_404, render
+from django.http import Http404
+from django.shortcuts import render
 
-from .models import Collection, Product
+from .shopify import get_product_by_handle, get_products
 
 
 def product_list(request):
-    products = Product.objects.filter(is_active=True).prefetch_related("images", "collections")
-    collections = Collection.objects.all()
-    collection_slug = request.GET.get("collection")
-
-    if collection_slug:
-        products = products.filter(collections__slug=collection_slug)
+    products = get_products()
 
     return render(
         request,
         "catalog/product_list.html",
         {
-            "products": products.distinct(),
-            "collections": collections,
-            "current_collection": collection_slug,
+            "products": products,
             "active_menu_item": "gallery",
         },
     )
 
 
 def product_detail(request, slug):
-    product = get_object_or_404(
-        Product.objects.prefetch_related("images", "collections"),
-        slug=slug,
-        is_active=True,
-    )
+    product = get_product_by_handle(slug)
+
+    if not product:
+        raise Http404("Product not found.")
+
     return render(
         request,
         "catalog/product_detail.html",
-        {"product": product, "active_menu_item": "gallery"},
+        {
+            "product": product,
+            "active_menu_item": "gallery",
+        },
     )
