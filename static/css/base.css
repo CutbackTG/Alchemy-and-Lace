@@ -1972,19 +1972,22 @@ html[data-theme="dark"] .nav-mobile__panel {
 
 .bag-item {
     display: grid;
-    grid-template-columns: 180px minmax(0, 1fr);
+    grid-template-columns: 160px minmax(0, 1fr);
     gap: 1.5rem;
+    align-items: center;
     padding: 1.5rem;
 }
 
 .bag-item__image {
-    aspect-ratio: 1 / 1;
+    width: 160px;
+    height: 160px;
     overflow: hidden;
     border-radius: 0.75rem;
     background: rgba(0, 0, 0, 0.35);
 }
 
 .bag-item__image img {
+    display: block;
     width: 100%;
     height: 100%;
     object-fit: contain;
@@ -2058,10 +2061,11 @@ html[data-theme="dark"] .nav-mobile__panel {
 
 @media (max-width: 600px) {
     .bag-item {
-        grid-template-columns: 1fr;
+        grid-template-columns: 100px minmax(0, 1fr);
     }
 
     .bag-item__image {
-        max-width: 260px;
+        width: 100px;
+        height: 100px;
     }
 }

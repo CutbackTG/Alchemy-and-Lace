@@ -299,8 +299,13 @@ def add_cart_line(cart_id, variant_id, quantity=1):
 
     return result["cart"]
 
-    def get_cart(cart_id):
-        query = """
+
+def get_cart(cart_id):
+    """
+    Return the current Shopify cart, including line items and totals.
+    """
+
+    query = """
     query GetCart($cartId: ID!) {
       cart(id: $cartId) {
         id
@@ -362,6 +367,10 @@ def add_cart_line(cart_id, variant_id, quantity=1):
 
 
 def remove_cart_line(cart_id, line_id):
+    """
+    Remove a line item from an existing Shopify cart.
+    """
+
     query = """
     mutation CartLinesRemove(
       $cartId: ID!,
