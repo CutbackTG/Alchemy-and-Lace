@@ -1,72 +1,82 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en-GB">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Anarchy & Lace creates one-of-a-kind garments from reclaimed Japanese kimono textiles.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{% static 'css/base.css' %}">
-  {% block extra_css %}{% endblock %}
-  <title>{% block title %}Anarchy &amp; Lace{% endblock %}</title>
-</head>
-<body>
-  <header class="topbar fixed-top">
-    <div class="container d-flex justify-content-between align-items-center py-3 nav-wrap">
-      <a href="{% url 'home:home' %}" class="brand text-decoration-none">
-        <img class="brand-logo" src="{% static 'logos/anarchy_and_lace_logo_plain_black.png' %}" alt="Anarchy &amp; Lace">
-        <span class="brand-text">
-          <span class="brand-mark">Anarchy</span><span class="brand-amp">&amp;</span><span class="brand-mark">Lace</span>
-        </span>
-      </a>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Anarchy & Lace creates one-of-a-kind garments from reclaimed Japanese kimono textiles." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+    {% block extra_css %}
+    {% endblock %}
+    <title>
+      {% block title %}
+        Anarchy &amp; Lace
+      {% endblock %}
+    </title>
+  </head>
+  <body>
+    <header class="topbar fixed-top">
+      <div class="container d-flex justify-content-between align-items-center py-3 nav-wrap">
+        <a href="{% url 'home:home' %}" class="brand text-decoration-none">
+          <img class="brand-logo" src="{% static 'logos/anarchy_and_lace_logo_plain_black.png' %}" alt="Anarchy &amp; Lace" />
+          <span class="brand-text"><span class="brand-mark">Anarchy</span><span class="brand-amp">&amp;</span><span class="brand-mark">Lace</span></span>
+        </a>
 
-      <nav class="nav-desktop" aria-label="Primary navigation">
-        <a class="nav-link {% if active_menu_item == 'Shop' %}active{% endif %}" href="{% url 'catalog:shop' %}">Shop</a>
-        <a class="nav-link {% if active_menu_item == 'kimono_history' %}active{% endif %}" href="{% url 'home:kimono_history' %}">Kimono Fabric</a>
-        <a class="nav-link {% if active_menu_item == 'contact' %}active{% endif %}" href="{% url 'home:contact' %}">Contact</a>
-      </nav>
-
-      <details class="nav-mobile">
-        <summary class="nav-mobile__trigger" aria-label="Open menu">
-          <span class="nav-mobile__icon">☰</span><span class="nav-mobile__label">Menu</span>
-        </summary>
-        <nav class="nav-mobile__panel glass-panel" aria-label="Mobile navigation">
-          <a class="nav-link nav-link--block" href="{% url 'catalog:shop' %}">Shop</a>
-          <a class="nav-link nav-link--block" href="{% url 'home:kimono_history' %}">Kimono Fabric</a>
-          <a class="nav-link nav-link--block" href="{% url 'home:contact' %}">Contact</a>
+        <nav class="nav-desktop" aria-label="Primary navigation">
+          <a class="nav-link {% if active_menu_item == 'Shop' %}active{% endif %}" href="{% url 'catalog:shop' %}">Shop</a>
+          <a class="nav-link {% if active_menu_item == 'kimono_history' %}active{% endif %}" href="{% url 'home:kimono_history' %}">Kimono Fabric</a>
+          <a class="nav-link {% if active_menu_item == 'contact' %}active{% endif %}" href="{% url 'home:contact' %}">Contact</a>#
+          <a href="{% url 'catalog:checkout' %}">
+            Bag{% if request.session.shopify_cart_quantity %}
+              ({{ request.session.shopify_cart_quantity }})
+            {% endif %}
+          </a>
         </nav>
-      </details>
 
-      <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle colour theme">
-        <span class="theme-toggle__icon">☾</span>
-      </button>
-    </div>
-    <div class="kintsugi-line"></div>
-  </header>
+        <details class="nav-mobile">
+          <summary class="nav-mobile__trigger" aria-label="Open menu">
+            <span class="nav-mobile__icon">☰</span><span class="nav-mobile__label">Menu</span>
+          </summary>
+          <nav class="nav-mobile__panel glass-panel" aria-label="Mobile navigation">
+            <a class="nav-link nav-link--block" href="{% url 'catalog:shop' %}">Shop</a>
+            <a class="nav-link nav-link--block" href="{% url 'home:kimono_history' %}">Kimono Fabric</a>
+            <a class="nav-link nav-link--block" href="{% url 'home:contact' %}">Contact</a>
+          </nav>
+        </details>
 
-  {% if messages %}
-    <div class="flash-stack" aria-live="polite" aria-atomic="true">
-      <div class="messages">
-        {% for message in messages %}<div class="message {{ message.tags }}">{{ message }}</div>{% endfor %}
+        <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle colour theme"><span class="theme-toggle__icon">☾</span></button>
       </div>
-    </div>
-  {% endif %}
+      <div class="kintsugi-line"></div>
+    </header>
 
-  <main class="container page">
-    {% block content %}{% endblock %}
-  </main>
+    {% if messages %}
+      <div class="flash-stack" aria-live="polite" aria-atomic="true">
+        <div class="messages">
+          {% for message in messages %}
+            <div class="message {{ message.tags }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
 
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <span class="footer-brand">Anarchy &amp; Lace</span>
-      <span class="footer-sep">·</span>
-      <span class="footer-copy">One-of-a-kind garments from reclaimed Japanese textiles</span>
-    </div>
-  </footer>
+    <main class="container page">
+      {% block content %}
+      {% endblock %}
+    </main>
 
-  <script src="{% static 'js/theme.js' %}" defer></script>
-  {% block extra_js %}{% endblock %}
-</body>
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <span class="footer-brand">Anarchy &amp; Lace</span>
+        <span class="footer-sep">·</span>
+        <span class="footer-copy">One-of-a-kind garments from reclaimed Japanese textiles</span>
+      </div>
+    </footer>
+
+    <script src="{% static 'js/theme.js' %}" defer></script>
+    {% block extra_js %}
+    {% endblock %}
+  </body>
 </html>
