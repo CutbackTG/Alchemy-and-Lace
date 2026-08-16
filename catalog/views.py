@@ -8,6 +8,8 @@ from .shopify import (
     get_collection_by_handle,
     get_product_by_handle,
     get_products,
+    remove_cart_line,
+    get_cart,
 )
 
 
@@ -141,3 +143,71 @@ def checkout(request):
         return redirect("catalog:shop")
 
     return redirect(checkout_url)
+
+def bag(request):
+    cart_id = request.session.get("shopify_cart_id")
+
+    if not cart_id:
+        return render(
+            request,
+            "catalog/bag.html",
+            {
+                "cart": None,
+                "active_menu_item": "shop",
+            },
+        )
+
+    try:
+        cart = get_cart(cart_id)
+
+    except RuntimeError:
+        cart = None
+
+    if not cart:
+        request.session.pop("shopify_cart_id", None)
+        request.session.pop("shopify_checkout_url", None)
+        request.session.pop("shopify_cart_quantity", None)
+
+    else:
+        request.session["shopify_checkout_url"] = cart["checkoutUrl"]
+        request.session["shopify_cart_quantity"] = cart["totalQuantity"]
+
+    return render(
+        request,
+        "catalog/bag.html",
+        {
+            "cart": cart,
+            "active_menu_item": "shop",
+        },
+    )
+
+
+def remove_from_bag(request, line_id):
+    if request.method != "POST":
+        return redirect("catalog:bag")
+
+    cart_id = request.session.get("shopify_cart_id")
+
+    if not cart_id:
+        return redirect("catalog:bag")
+
+    try:
+        cart = remove_cart_line(
+            cart_id,
+            line_id,
+        )
+
+        request.session["shopify_checkout_url"] = cart["checkoutUrl"]
+        request.session["shopify_cart_quantity"] = cart["totalQuantity"]
+
+        if cart["totalQuantity"] == 0:
+            request.session.pop("shopify_cart_id", None)
+            request.session.pop("shopify_checkout_url", None)
+
+    except RuntimeError:
+        messages.error(
+            request,
+            "We couldn't remove that piece from your bag.",
+        )
+
+    return redirect("catalog:bag")

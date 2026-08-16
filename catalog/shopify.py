@@ -298,3 +298,145 @@ def add_cart_line(cart_id, variant_id, quantity=1):
         raise RuntimeError(result["userErrors"])
 
     return result["cart"]
+
+    def get_cart(cart_id):
+        query = """
+    query GetCart($cartId: ID!) {
+      cart(id: $cartId) {
+        id
+        checkoutUrl
+        totalQuantity
+
+        cost {
+          subtotalAmount {
+            amount
+            currencyCode
+          }
+
+          totalAmount {
+            amount
+            currencyCode
+          }
+        }
+
+        lines(first: 50) {
+          nodes {
+            id
+            quantity
+
+            merchandise {
+              ... on ProductVariant {
+                id
+                title
+
+                price {
+                  amount
+                  currencyCode
+                }
+
+                product {
+                  title
+                  handle
+
+                  featuredImage {
+                    url
+                    altText
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    """
+
+    data = shopify_query(
+        query,
+        {
+            "cartId": cart_id,
+        },
+    )
+
+    return data["cart"]
+
+
+def remove_cart_line(cart_id, line_id):
+    query = """
+    mutation CartLinesRemove(
+      $cartId: ID!,
+      $lineIds: [ID!]!
+    ) {
+      cartLinesRemove(
+        cartId: $cartId,
+        lineIds: $lineIds
+      ) {
+        cart {
+          id
+          checkoutUrl
+          totalQuantity
+
+          cost {
+            subtotalAmount {
+              amount
+              currencyCode
+            }
+
+            totalAmount {
+              amount
+              currencyCode
+            }
+          }
+
+          lines(first: 50) {
+            nodes {
+              id
+              quantity
+
+              merchandise {
+                ... on ProductVariant {
+                  id
+                  title
+
+                  price {
+                    amount
+                    currencyCode
+                  }
+
+                  product {
+                    title
+                    handle
+
+                    featuredImage {
+                      url
+                      altText
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        userErrors {
+          field
+          message
+        }
+      }
+    }
+    """
+
+    data = shopify_query(
+        query,
+        {
+            "cartId": cart_id,
+            "lineIds": [line_id],
+        },
+    )
+
+    result = data["cartLinesRemove"]
+
+    if result["userErrors"]:
+        raise RuntimeError(result["userErrors"])
+
+    return result["cart"]

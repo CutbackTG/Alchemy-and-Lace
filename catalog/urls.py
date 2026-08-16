@@ -10,6 +10,18 @@ urlpatterns = [
     path("", views.shop, name="shop"),
 
     path(
+        "bag/",
+        views.bag,
+        name="bag",
+    ),
+
+    path(
+        "bag/remove/<path:line_id>/",
+        views.remove_from_bag,
+        name="remove_from_bag",
+    ),
+
+    path(
         "checkout/",
         views.checkout,
         name="checkout",
@@ -26,8 +38,6 @@ urlpatterns = [
         views.add_to_bag,
         name="add_to_bag",
     ),
-
-    path("checkout/", views.checkout, name="checkout"),
 
     path(
         "<slug:slug>/",

@@ -7,69 +7,171 @@
 
 {% block content %}
   <section class="pd">
+
     <div class="pd-gallery glass-panel">
+
       <div class="pd-viewerbar" aria-label="Image view controls">
-        <button type="button" class="pd-viewerbtn is-active" data-mode="fit">Fit</button>
+        <button
+          type="button"
+          class="pd-viewerbtn is-active"
+          data-mode="fit"
+        >
+          Fit
+        </button>
 
-        <button type="button" class="pd-viewerbtn" data-mode="fill">Fill</button>
+        <button
+          type="button"
+          class="pd-viewerbtn"
+          data-mode="fill"
+        >
+          Fill
+        </button>
       </div>
 
-      <div class="pd-main" aria-label="Main gallery image">
+
+      <div class="pd-main" aria-label="Main product image">
+
         {% if product.featuredImage %}
-          <img id="pdMainImg" class="pd-main-img" src="{{ product.featuredImage.url }}" alt="{{ product.featuredImage.altText|default:product.title }}" loading="eager" />
+          <img
+            id="pdMainImg"
+            class="pd-main-img"
+            src="{{ product.featuredImage.url }}"
+            alt="{{ product.featuredImage.altText|default:product.title }}"
+            loading="eager"
+          />
         {% else %}
-          <div class="pd-main-placeholder">Image coming soon</div>
+          <div class="pd-main-placeholder">
+            Image coming soon
+          </div>
         {% endif %}
+
       </div>
+
 
       {% if product.images.nodes %}
-        <div class="pd-thumbs" aria-label="Additional gallery images">
+
+        <div
+          class="pd-thumbs"
+          aria-label="Additional product images"
+        >
+
           {% for img in product.images.nodes %}
-            <button class="pd-thumb" type="button" data-src="{{ img.url }}" aria-label="View image {{ forloop.counter }}"><img src="{{ img.url }}" alt="{{ img.altText|default:product.title }}" loading="lazy" /></button>
+
+            <button
+              class="pd-thumb"
+              type="button"
+              data-src="{{ img.url }}"
+              aria-label="View image {{ forloop.counter }}"
+            >
+              <img
+                src="{{ img.url }}"
+                alt="{{ img.altText|default:product.title }}"
+                loading="lazy"
+              />
+            </button>
+
           {% endfor %}
+
         </div>
+
       {% endif %}
+
     </div>
 
-    <div class="pd-info glass-panel">
-      <p class="mag-kicker">Gallery piece</p>
 
-      <h1 class="pd-title">{{ product.title }}</h1>
+    <div class="pd-info glass-panel">
+
+      <p class="mag-kicker">
+        One-of-a-kind piece
+      </p>
+
+      <h1 class="pd-title">
+        {{ product.title }}
+      </h1>
+
 
       {% if product.descriptionHtml %}
-        <div class="pd-desc pd-description">{{ product.descriptionHtml|safe }}</div>
+
+        <div class="pd-desc pd-description">
+          {{ product.descriptionHtml|safe }}
+        </div>
+
       {% endif %}
 
+
       {% if product.selectedOrFirstAvailableVariant %}
+
         <div class="pd-meta">
+
           <p>
             <strong>Price:</strong>
             £{{ product.selectedOrFirstAvailableVariant.price.amount|floatformat:2 }}
           </p>
+
           <p>
             <strong>Availability:</strong>
-            {% if product.availableForSale %}
+
+            {% if product.selectedOrFirstAvailableVariant.availableForSale %}
               Available
             {% else %}
               Sold
             {% endif %}
           </p>
+
         </div>
+
       {% endif %}
 
+
       <div class="pd-actions">
-        {% if product.availableForSale %}
-          <span class="button button--gold">Available</span>
+
+        {% if product.selectedOrFirstAvailableVariant.availableForSale %}
+
+          <form
+            method="post"
+            action="{% url 'catalog:add_to_bag' slug=product.handle %}"
+          >
+            {% csrf_token %}
+
+            <button
+              type="submit"
+              class="button button--gold"
+            >
+              Add to Bag
+            </button>
+          </form>
+
         {% else %}
-          <span class="button button--gold">Sold</span>
+
+          <button
+            type="button"
+            class="button button--gold"
+            disabled
+          >
+            Sold
+          </button>
+
         {% endif %}
 
-        <a class="button" href="{% url 'catalog:shop' %}">Back to Shop</a>
+
+        <a
+          class="button"
+          href="{% url 'catalog:shop' %}"
+        >
+          Back to Shop
+        </a>
+
       </div>
+
     </div>
+
   </section>
 {% endblock %}
 
+
 {% block extra_js %}
-  <script src="{% static 'js/product_detail.js' %}" defer></script>
+  <script
+    src="{% static 'js/product_detail.js' %}"
+    defer
+  ></script>
 {% endblock %}

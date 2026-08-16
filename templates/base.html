@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="{% static 'css/base.css' %}" />
     {% block extra_css %}
+
     {% endblock %}
     <title>
       {% block title %}
@@ -28,10 +29,17 @@
         <nav class="nav-desktop" aria-label="Primary navigation">
           <a class="nav-link {% if active_menu_item == 'Shop' %}active{% endif %}" href="{% url 'catalog:shop' %}">Shop</a>
           <a class="nav-link {% if active_menu_item == 'kimono_history' %}active{% endif %}" href="{% url 'home:kimono_history' %}">Kimono Fabric</a>
-          <a class="nav-link {% if active_menu_item == 'contact' %}active{% endif %}" href="{% url 'home:contact' %}">Contact</a>#
-          <a href="{% url 'catalog:checkout' %}">
-            Bag{% if request.session.shopify_cart_quantity %}
-              ({{ request.session.shopify_cart_quantity }})
+          <a class="nav-link {% if active_menu_item == 'contact' %}active{% endif %}" href="{% url 'home:contact' %}">Contact</a>
+          <a href="{% url 'catalog:bag' %}" class="nav-bag" aria-label="Shopping bag">
+            <svg class="nav-bag__icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 8h12l-1 12H7L6 8Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+              <path d="M9 9V6a3 3 0 0 1 6 0v3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+            </svg>
+
+            <span>Bag</span>
+
+            {% if request.session.shopify_cart_quantity %}
+              <span class="nav-bag__count">{{ request.session.shopify_cart_quantity }}</span>
             {% endif %}
           </a>
         </nav>
@@ -64,6 +72,7 @@
 
     <main class="container page">
       {% block content %}
+
       {% endblock %}
     </main>
 
@@ -77,6 +86,7 @@
 
     <script src="{% static 'js/theme.js' %}" defer></script>
     {% block extra_js %}
+
     {% endblock %}
   </body>
 </html>
