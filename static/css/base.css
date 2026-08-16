@@ -2069,13 +2069,18 @@ html[data-theme="dark"] .nav-mobile__panel {
         height: 100px;
     }
 }
-.product-price {
-    margin: 0.35rem 0 0.25rem;
-    font-size: 1.15rem;
-    font-weight: 600;
-}
 
 .product-availability,
 .product-sold {
     margin: 0;
+}
+
+.product-price {
+    display: block;
+    margin: 0.35rem 0 0.25rem;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: inherit;
+    opacity: 1;
+    visibility: visible;
 }
