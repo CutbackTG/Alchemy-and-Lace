@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Analytics | Anarchy &amp; Lace
+{% endblock %}
+
+{% block content %}
+
+<section class="analytics-page">
+
+  <div class="analytics-header glass-panel">
+    <p class="mag-kicker">
+      Private dashboard
+    </p>
+
+    <h1>Footfall</h1>
+
+    <p>
+      Anonymous traffic across the
+      Anarchy &amp; Lace storefront.
+    </p>
+  </div>
+
+
+  <div class="analytics-stats">
+
+    <article class="analytics-stat glass-panel">
+      <span>Visitors today</span>
+      <strong>{{ visitors_today }}</strong>
+    </article>
+
+    <article class="analytics-stat glass-panel">
+      <span>Page views today</span>
+      <strong>{{ pageviews_today }}</strong>
+    </article>
+
+    <article class="analytics-stat glass-panel">
+      <span>Visitor-days · 7 days</span>
+      <strong>{{ visitors_7_days }}</strong>
+    </article>
+
+    <article class="analytics-stat glass-panel">
+      <span>Page views · 7 days</span>
+      <strong>{{ pageviews_7_days }}</strong>
+    </article>
+
+    <article class="analytics-stat glass-panel">
+      <span>Page views · 30 days</span>
+      <strong>{{ pageviews_30_days }}</strong>
+    </article>
+
+  </div>
+
+
+  <div class="analytics-grid">
+
+    <section class="analytics-panel glass-panel">
+
+      <h2>Popular pages</h2>
+
+      <div class="analytics-table-wrap">
+        <table class="analytics-table">
+          <thead>
+            <tr>
+              <th>Page</th>
+              <th>Views</th>
+              <th>Visitors</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {% for page in top_pages %}
+              <tr>
+                <td>
+                  {{ page.path }}
+                </td>
+                <td>
+                  {{ page.views }}
+                </td>
+                <td>
+                  {{ page.visitors }}
+                </td>
+              </tr>
+            {% empty %}
+              <tr>
+                <td colspan="3">
+                  No traffic yet.
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+    </section>
+
+
+    <section class="analytics-panel glass-panel">
+
+      <h2>Traffic sources</h2>
+
+      <div class="analytics-list">
+        {% for source in referrers %}
+          <div class="analytics-list__row">
+            <span>
+              {{ source.referrer_host }}
+            </span>
+
+            <strong>
+              {{ source.visits }}
+            </strong>
+          </div>
+        {% empty %}
+          <p>
+            No external referrals recorded yet.
+          </p>
+        {% endfor %}
+      </div>
+
+    </section>
+
+
+    <section class="analytics-panel glass-panel">
+
+      <h2>Devices</h2>
+
+      <div class="analytics-list">
+        {% for device in devices %}
+          <div class="analytics-list__row">
+            <span>
+              {{ device.device|title }}
+            </span>
+
+            <strong>
+              {{ device.visits }}
+            </strong>
+          </div>
+        {% empty %}
+          <p>
+            No device information yet.
+          </p>
+        {% endfor %}
+      </div>
+
+    </section>
+
+  </div>
+
+</section>
+
+{% endblock %}

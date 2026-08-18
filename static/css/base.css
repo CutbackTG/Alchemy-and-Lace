@@ -2239,3 +2239,139 @@ html[data-theme="dark"] .nav-mobile__panel {
   gap: 10px;
   margin-top: 1.5rem;
 }
+
+/* =========================================================
+   ANALYTICS DASHBOARD
+   ========================================================= */
+
+.analytics-page {
+  width: min(
+    1200px,
+    calc(100% - (var(--container-pad) * 2))
+  );
+
+  margin-inline: auto;
+  padding: 2rem 0 5rem;
+}
+
+.analytics-header {
+  margin-bottom: 1.5rem;
+}
+
+.analytics-header h1 {
+  margin-bottom: 0.4rem;
+}
+
+.analytics-header p:last-child {
+  margin-bottom: 0;
+}
+
+.analytics-stats {
+  display: grid;
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(180px, 1fr)
+    );
+
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.analytics-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.analytics-stat span {
+  color: var(--ink-muted);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.analytics-stat strong {
+  color: var(--ink);
+  font-size: clamp(
+    2rem,
+    5vw,
+    3.2rem
+  );
+  line-height: 1;
+}
+
+.analytics-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 1.5rem;
+}
+
+.analytics-panel {
+  min-width: 0;
+}
+
+.analytics-panel:first-child {
+  grid-column: 1 / -1;
+}
+
+.analytics-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.analytics-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.analytics-table th,
+.analytics-table td {
+  padding: 0.85rem 0.75rem;
+  border-bottom:
+    1px solid var(--panel-border);
+  text-align: left;
+}
+
+.analytics-table th {
+  color: var(--ink);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.analytics-list {
+  display: grid;
+}
+
+.analytics-list__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+
+  padding: 0.8rem 0;
+
+  border-bottom:
+    1px solid var(--panel-border);
+}
+
+.analytics-list__row:last-child {
+  border-bottom: 0;
+}
+
+.analytics-list__row strong {
+  color: var(--gold);
+}
+
+@media (max-width: 750px) {
+  .analytics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .analytics-panel:first-child {
+    grid-column: auto;
+  }
+}
