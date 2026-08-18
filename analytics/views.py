@@ -1,21 +1,13 @@
 from datetime import timedelta
 
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import Count
 from django.shortcuts import render
 from django.utils import timezone
 
 from .models import PageView
 
-
-def staff_required(user):
-    return (
-        user.is_authenticated
-        and user.is_staff
-    )
-
-
-@user_passes_test(staff_required)
+@staff_member_required
 def dashboard(request):
     now = timezone.now()
     today = timezone.localdate()
