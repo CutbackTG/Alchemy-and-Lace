@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin/
+Disallow: /analytics/
+
+Sitemap: https://www.anarchyandlace.co.uk/sitemap.xml
