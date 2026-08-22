@@ -2376,3 +2376,182 @@ html[data-theme="dark"] .nav-mobile__panel {
     grid-column: auto;
   }
 }
+
+.home-featured {
+  margin-top: 2rem;
+}
+
+.home-featured__header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.home-featured__header h2 {
+  margin: 0;
+}
+
+@media (max-width: 576px) {
+  .home-featured__header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+/* ============================================================
+   SHOP + COLLECTION VERTICAL SPACING
+   ============================================================ */
+
+.shop {
+  padding-top: 1rem;
+}
+
+.shop-top {
+  margin-bottom: 1rem;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
+.shop-header {
+  margin: 0;
+}
+
+.shop-header .mag-kicker {
+  margin-bottom: 0.35rem;
+}
+
+.shop-header h1 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.shop-header p {
+  margin-top: 0.35rem;
+  margin-bottom: 0.35rem;
+}
+
+
+/* Keep the size filter close to the collection intro */
+
+.collection-tools {
+  margin-top: 0.65rem;
+  margin-bottom: 0.85rem;
+}
+
+
+/* Reduce excess spacing before the product grid */
+
+.product-grid {
+  margin-top: 0;
+}
+
+
+/* Slightly tighter on mobile */
+
+@media (max-width: 768px) {
+
+  .shop {
+    padding-top: 0.65rem;
+  }
+
+  .shop-top {
+    margin-bottom: 0.75rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .collection-tools {
+    margin-top: 0.5rem;
+    margin-bottom: 0.7rem;
+  }
+}
+
+/* ============================================================
+   SHOP CHOICE — TIGHTER VERTICAL RHYTHM
+   ============================================================ */
+
+.shop-choice {
+  padding-top: 1rem;
+}
+
+
+/* Intro panel */
+
+.shop-choice__intro {
+  margin-bottom: 1rem;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
+.shop-choice__intro .mag-kicker {
+  margin-top: 0;
+  margin-bottom: 0.35rem;
+}
+
+.shop-choice__intro h1 {
+  margin-top: 0;
+  margin-bottom: 0.45rem;
+}
+
+.shop-choice__intro p:last-child {
+  margin-top: 0.3rem;
+  margin-bottom: 0;
+}
+
+
+/* Bring the two collection cards closer to the intro */
+
+.shop-choice__grid {
+  margin-top: 0;
+  gap: 1rem;
+}
+
+
+/* Slightly reduce excessive vertical space inside cards */
+
+.shop-choice__content {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.shop-choice__content .mag-kicker {
+  margin-top: 0;
+  margin-bottom: 0.35rem;
+}
+
+.shop-choice__content h2 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.shop-choice__content p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+
+/* Mobile */
+
+@media (max-width: 768px) {
+
+  .shop-choice {
+    padding-top: 0.65rem;
+  }
+
+  .shop-choice__intro {
+    margin-bottom: 0.75rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .shop-choice__grid {
+    gap: 0.75rem;
+  }
+
+  .shop-choice__content {
+    padding-top: 1.2rem;
+    padding-bottom: 1.2rem;
+  }
+}

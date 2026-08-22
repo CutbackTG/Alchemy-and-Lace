@@ -8,6 +8,7 @@ from django.core.validators import validate_email
 from django.shortcuts import redirect, render
 
 from catalog.models import Product
+from catalog.shopify import get_collection_by_handle
 
 logger = logging.getLogger(__name__)
 
@@ -79,4 +80,24 @@ def kimono_history(request):
         request,
         "home/kimono_history.html",
         {"active_menu_item": "kimono_history"},
+    )
+
+def index(request):
+    featured_collection = get_collection_by_handle("featured")
+
+    featured_products = []
+
+    if featured_collection:
+        featured_products = (
+            featured_collection
+            .get("products", {})
+            .get("nodes", [])
+        )[:4]
+
+    return render(
+        request,
+        "home/index.html",
+        {
+            "featured_products": featured_products,
+        },
     )
