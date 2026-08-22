@@ -1,42 +1,151 @@
 {% extends 'base.html' %}
 {% load static %}
 
+
+{% block title %}
+  Reworked Clothing &amp; Japanese Kimono Silk | Anarchy &amp; Lace
+{% endblock %}
+
+
+{% block meta_description %}
+  <meta
+    name="description"
+    content="Discover one-of-a-kind reworked clothing by Anarchy &amp; Lace, created from reclaimed Japanese kimono silk, vintage textiles and carefully sourced garments."
+  >
+{% endblock %}
+
+
+{% block og_title %}
+  Reworked Clothing &amp; Japanese Kimono Silk | Anarchy &amp; Lace
+{% endblock %}
+
+
+{% block og_description %}
+  One-of-a-kind reworked clothing created from reclaimed Japanese kimono silk, vintage textiles and carefully sourced garments.
+{% endblock %}
+
+
+{% block og_type %}
+  website
+{% endblock %}
+
+
+{% block twitter_title %}
+  Reworked Clothing &amp; Japanese Kimono Silk | Anarchy &amp; Lace
+{% endblock %}
+
+
+{% block twitter_description %}
+  One-of-a-kind reworked clothing created from reclaimed Japanese kimono silk, vintage textiles and carefully sourced garments.
+{% endblock %}
+
+
 {% block content %}
+
   <!-- HERO FABRIC GALLERY PANEL -->
   <div class="glass-panel hero__panel hero__panel--gallery">
-    <div class="fabric-card__img" style="background-image:url('{% static 'background_images/fabrics/kimono_fabric.webp' %}');"></div>
+
+    <div
+      class="fabric-card__img"
+      style="background-image: url('{% static 'background_images/fabrics/kimono_fabric.webp' %}');"
+    ></div>
+
   </div>
+
 
   <div class="hero__grid">
+
+    <!-- SHOP -->
     <div class="glass-panel hero-card">
-      <h3 class="hero-card__title">Explore our garment gallery</h3>
-      <p>Curated pieces with a strong silhouette and a soft footprint</p>
 
-      <a href="{% url 'catalog:shop' %}" class="image_button image_button--link" style="background-image:url('{% static 'img/range/shop_button.webp' %}');"></a>
+      <h3 class="hero-card__title">
+        Explore our garment gallery
+      </h3>
 
-      <a class="nav-link hero-card__link" href="{% url 'catalog:shop' %}">View the Shop →</a>
+      <p>
+        One-of-a-kind reworked clothing with a strong silhouette
+        and a softer footprint.
+      </p>
+
+      <a
+        href="{% url 'catalog:shop' %}"
+        class="image_button image_button--link"
+        style="background-image: url('{% static 'img/range/shop_button.webp' %}');"
+        aria-label="Explore the Anarchy &amp; Lace garment gallery"
+      ></a>
+
+      <a
+        class="nav-link hero-card__link"
+        href="{% url 'catalog:shop' %}"
+      >
+        View the Shop →
+      </a>
+
     </div>
 
+
+    <!-- KIMONO SILK -->
     <div class="glass-panel hero-card">
-      <h3 class="hero-card__title">Authentic, Vintage Japanese Kimono Silk</h3>
-      <p>Preserving historic beauty and art through fashion</p>
 
-      <a href="{% url 'home:kimono_history' %}" class="image_button image_button--link" style="background-image:url('{% static 'img/kimono/kimono_button.webp' %}');"></a>
+      <h3 class="hero-card__title">
+        Authentic Vintage Japanese Kimono Silk
+      </h3>
 
-      <a class="nav-link hero-card__link" href="{% url 'home:kimono_history' %}">Kimono Fabric →</a>
+      <p>
+        Reclaimed Japanese kimono silk, preserving historic
+        beauty and artistry through contemporary fashion.
+      </p>
+
+      <a
+        href="{% url 'home:kimono_history' %}"
+        class="image_button image_button--link"
+        style="background-image: url('{% static 'img/kimono/kimono_button.webp' %}');"
+        aria-label="Discover the history of Japanese kimono silk"
+      ></a>
+
+      <a
+        class="nav-link hero-card__link"
+        href="{% url 'home:kimono_history' %}"
+      >
+        Kimono Fabric →
+      </a>
+
     </div>
 
+
+    <!-- COMMISSIONS -->
     <div class="glass-panel hero-card">
-      <h3 class="hero-card__title">Bespoke Commissions</h3>
-      <p>Have an idea for a personal piece, custom project or special event?</p>
 
-      <a href="{% url 'home:contact' %}" class="image_button image_button--link" style="background-image:url('{% static 'img/commissions/commissions_button.webp' %}');"></a>
+      <h3 class="hero-card__title">
+        Bespoke Commissions
+      </h3>
 
-      <a class="nav-link hero-card__link" href="{% url 'home:contact' %}">Share your vision →</a>
+      <p>
+        Have an idea for a personal piece, custom project
+        or special event?
+      </p>
+
+      <a
+        href="{% url 'home:contact' %}"
+        class="image_button image_button--link"
+        style="background-image: url('{% static 'img/commissions/commissions_button.webp' %}');"
+        aria-label="Enquire about a bespoke Anarchy &amp; Lace commission"
+      ></a>
+
+      <a
+        class="nav-link hero-card__link"
+        href="{% url 'home:contact' %}"
+      >
+        Share your vision →
+      </a>
+
     </div>
+
   </div>
+
 
   <div class="hero__footer">
     <div class="kintsugi-line"></div>
   </div>
+
 {% endblock %}

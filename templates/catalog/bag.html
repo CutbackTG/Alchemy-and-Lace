@@ -1,12 +1,37 @@
 {% extends 'base.html' %}
 
+
+{# ============================================================ #}
+{# BAG SEO                                                      #}
+{# Shopping bags should not appear in search results.           #}
+{# ============================================================ #}
+
 {% block title %}
   Your Bag | Anarchy &amp; Lace
 {% endblock %}
 
+
+{% block meta_description %}
+  <meta
+    name="robots"
+    content="noindex, follow"
+  >
+{% endblock %}
+
+
+
+{# ============================================================ #}
+{# PAGE CONTENT                                                 #}
+{# ============================================================ #}
+
 {% block content %}
 
 <section class="bag-page">
+
+
+  {# ========================================================== #}
+  {# BAG HEADER                                                 #}
+  {# ========================================================== #}
 
   <div class="bag-header glass-panel">
 
@@ -21,9 +46,16 @@
   </div>
 
 
+
   {% if cart and cart.lines.nodes %}
 
+
     <div class="bag-layout">
+
+
+      {# ====================================================== #}
+      {# BAG ITEMS                                              #}
+      {# ====================================================== #}
 
       <div class="bag-items">
 
@@ -31,19 +63,28 @@
 
           <article class="bag-item glass-panel">
 
+
             <div class="bag-item__image">
 
               {% if line.merchandise.product.featuredImage %}
 
-                <img
-                  src="{{ line.merchandise.product.featuredImage.url }}"
-                  alt="{{ line.merchandise.product.featuredImage.altText|default:line.merchandise.product.title }}"
-                  loading="lazy"
-                />
+                <a
+                  href="{% url 'catalog:product_detail' slug=line.merchandise.product.handle %}"
+                  aria-label="View {{ line.merchandise.product.title }}"
+                >
+
+                  <img
+                    src="{{ line.merchandise.product.featuredImage.url }}"
+                    alt="{{ line.merchandise.product.featuredImage.altText|default:line.merchandise.product.title }}"
+                    loading="lazy"
+                  >
+
+                </a>
 
               {% endif %}
 
             </div>
+
 
 
             <div class="bag-item__details">
@@ -52,25 +93,46 @@
                 One-of-a-kind piece
               </p>
 
+
               <h2>
-                <a href="{% url 'catalog:product_detail' slug=line.merchandise.product.handle %}">
+
+                <a
+                  href="{% url 'catalog:product_detail' slug=line.merchandise.product.handle %}"
+                >
                   {{ line.merchandise.product.title }}
                 </a>
+
               </h2>
+
 
               <p class="bag-item__price">
                 £{{ line.merchandise.price.amount|floatformat:2 }}
               </p>
+
+
+              {# Shopify variant title becomes the garment size #}
+
+              {% if line.merchandise.title and line.merchandise.title != "Default Title" %}
+
+                <p class="bag-item__size">
+                  <strong>Size:</strong>
+                  {{ line.merchandise.title }}
+                </p>
+
+              {% endif %}
+
 
               <p class="bag-item__quantity">
                 Quantity: {{ line.quantity }}
               </p>
 
 
+
               <form
                 method="post"
                 action="{% url 'catalog:remove_from_bag' line_id=line.id %}"
               >
+
                 {% csrf_token %}
 
                 <button
@@ -91,19 +153,27 @@
       </div>
 
 
+
+      {# ====================================================== #}
+      {# ORDER SUMMARY                                          #}
+      {# ====================================================== #}
+
       <aside class="bag-summary glass-panel">
 
         <p class="mag-kicker">
           Order summary
         </p>
 
+
         <h2>
           Subtotal
         </h2>
 
+
         <p class="bag-summary__total">
           £{{ cart.cost.subtotalAmount.amount|floatformat:2 }}
         </p>
+
 
         <p class="bag-summary__note">
           Shipping and taxes are calculated at checkout.
@@ -117,6 +187,7 @@
           Secure Checkout
         </a>
 
+
         <a
           href="{% url 'catalog:shop' %}"
           class="button"
@@ -128,17 +199,31 @@
 
     </div>
 
+
+
   {% else %}
 
+
+    {# ======================================================== #}
+    {# EMPTY BAG                                                #}
+    {# ======================================================== #}
+
     <div class="bag-empty glass-panel">
+
+      <p class="mag-kicker">
+        Your selection
+      </p>
+
 
       <h2>
         Your bag is empty
       </h2>
 
+
       <p>
         Nothing has followed you home just yet.
       </p>
+
 
       <a
         href="{% url 'catalog:shop' %}"
@@ -148,6 +233,7 @@
       </a>
 
     </div>
+
 
   {% endif %}
 

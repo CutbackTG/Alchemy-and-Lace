@@ -2,6 +2,10 @@
 {% load static %}
 
 
+{# ============================================================ #}
+{# PRIMARY SEO                                                  #}
+{# ============================================================ #}
+
 {% block title %}
   {{ product.title }} | Anarchy &amp; Lace
 {% endblock %}
@@ -16,10 +20,11 @@
   {% else %}
     <meta
       name="description"
-      content="One-of-a-kind garment from Anarchy &amp; Lace."
+      content="{{ product.title }} is a one-of-a-kind reworked garment from Anarchy &amp; Lace, created using carefully sourced vintage and reclaimed textiles."
     >
   {% endif %}
 {% endblock %}
+
 
 
 {# ============================================================ #}
@@ -35,7 +40,7 @@
   {% if product.description %}
     {{ product.description|striptags|truncatechars:200 }}
   {% else %}
-    One-of-a-kind garment from Anarchy &amp; Lace.
+    {{ product.title }} is a one-of-a-kind reworked garment from Anarchy &amp; Lace, created using carefully sourced vintage and reclaimed textiles.
   {% endif %}
 {% endblock %}
 
@@ -68,6 +73,7 @@
 {% endblock %}
 
 
+
 {# ============================================================ #}
 {# X / TWITTER                                                  #}
 {# ============================================================ #}
@@ -81,7 +87,7 @@
   {% if product.description %}
     {{ product.description|striptags|truncatechars:200 }}
   {% else %}
-    One-of-a-kind garment from Anarchy &amp; Lace.
+    {{ product.title }} is a one-of-a-kind reworked garment from Anarchy &amp; Lace, created using carefully sourced vintage and reclaimed textiles.
   {% endif %}
 {% endblock %}
 
@@ -103,18 +109,24 @@
   {% endif %}
 {% endblock %}
 
+
+
 {# ============================================================ #}
 {# PRODUCT STRUCTURED DATA                                      #}
 {# ============================================================ #}
 
 {% block structured_data %}
+
   {% if product.selectedOrFirstAvailableVariant %}
+
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Product",
+
       "name": "{{ product.title|escapejs }}",
-      "description": "{% if product.description %}{{ product.description|striptags|escapejs }}{% else %}One-of-a-kind garment from Anarchy and Lace.{% endif %}",
+
+      "description": "{% if product.description %}{{ product.description|striptags|escapejs }}{% else %}One-of-a-kind reworked garment from Anarchy & Lace.{% endif %}",
 
       {% if product.images.nodes %}
       "image": [
@@ -139,10 +151,15 @@
 
       "offers": {
         "@type": "Offer",
+
         "url": "https://www.anarchyandlace.co.uk{{ request.path|escapejs }}",
+
         "priceCurrency": "{{ product.selectedOrFirstAvailableVariant.price.currencyCode }}",
+
         "price": "{{ product.selectedOrFirstAvailableVariant.price.amount }}",
+
         "availability": "{% if product.selectedOrFirstAvailableVariant.availableForSale %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
+
         "seller": {
           "@type": "Organization",
           "name": "Anarchy & Lace"
@@ -150,8 +167,11 @@
       }
     }
     </script>
+
   {% endif %}
+
 {% endblock %}
+
 
 
 {# ============================================================ #}
@@ -159,7 +179,13 @@
 {# ============================================================ #}
 
 {% block content %}
+
   <section class="pd">
+
+
+    {# ======================================================== #}
+    {# PRODUCT GALLERY                                          #}
+    {# ======================================================== #}
 
     <div class="pd-gallery glass-panel">
 
@@ -167,6 +193,7 @@
         class="pd-viewerbar"
         aria-label="Image view controls"
       >
+
         <button
           type="button"
           class="pd-viewerbtn is-active"
@@ -182,6 +209,7 @@
         >
           Fill
         </button>
+
       </div>
 
 
@@ -189,7 +217,9 @@
         class="pd-main"
         aria-label="Main product image"
       >
+
         {% if product.featuredImage %}
+
           <img
             id="pdMainImg"
             class="pd-main-img"
@@ -197,38 +227,55 @@
             alt="{{ product.featuredImage.altText|default:product.title }}"
             loading="eager"
           >
+
         {% else %}
+
           <div class="pd-main-placeholder">
             Image coming soon
           </div>
+
         {% endif %}
+
       </div>
 
 
       {% if product.images.nodes %}
+
         <div
           class="pd-thumbs"
           aria-label="Additional product images"
         >
+
           {% for img in product.images.nodes %}
+
             <button
               class="pd-thumb"
               type="button"
               data-src="{{ img.url }}"
               aria-label="View image {{ forloop.counter }} of {{ product.title }}"
             >
+
               <img
                 src="{{ img.url }}"
                 alt="{{ img.altText|default:product.title }}"
                 loading="lazy"
               >
+
             </button>
+
           {% endfor %}
+
         </div>
+
       {% endif %}
 
     </div>
 
+
+
+    {# ======================================================== #}
+    {# PRODUCT INFORMATION                                      #}
+    {# ======================================================== #}
 
     <div class="pd-info glass-panel">
 
@@ -236,27 +283,51 @@
         One-of-a-kind piece
       </p>
 
+
       <h1 class="pd-title">
         {{ product.title }}
       </h1>
 
 
       {% if product.descriptionHtml %}
+
         <div class="pd-desc pd-description">
           {{ product.descriptionHtml|safe }}
         </div>
+
       {% endif %}
 
 
+
       {% if product.selectedOrFirstAvailableVariant %}
+
         <div class="pd-meta">
+
 
           <p>
             <strong>Price:</strong>
             £{{ product.selectedOrFirstAvailableVariant.price.amount|floatformat:2 }}
           </p>
 
+
+          {# Product size from Shopify variant #}
+
+          {% for option in product.selectedOrFirstAvailableVariant.selectedOptions %}
+
+            {% if option.name|lower == "size" %}
+
+              <p>
+                <strong>Size:</strong>
+                {{ option.value }}
+              </p>
+
+            {% endif %}
+
+          {% endfor %}
+
+
           <p>
+
             <strong>Availability:</strong>
 
             {% if product.selectedOrFirstAvailableVariant.availableForSale %}
@@ -264,11 +335,18 @@
             {% else %}
               Sold
             {% endif %}
+
           </p>
 
         </div>
+
       {% endif %}
 
+
+
+      {# ====================================================== #}
+      {# ACTIONS                                                #}
+      {# ====================================================== #}
 
       <div class="pd-actions">
 
@@ -278,6 +356,7 @@
             method="post"
             action="{% url 'catalog:add_to_bag' slug=product.handle %}"
           >
+
             {% csrf_token %}
 
             <button
@@ -286,6 +365,7 @@
             >
               Add to Bag
             </button>
+
           </form>
 
         {% else %}
@@ -313,12 +393,20 @@
     </div>
 
   </section>
+
 {% endblock %}
 
 
+
+{# ============================================================ #}
+{# PRODUCT GALLERY JAVASCRIPT                                  #}
+{# ============================================================ #}
+
 {% block extra_js %}
+
   <script
     src="{% static 'js/product_detail.js' %}"
     defer
   ></script>
+
 {% endblock %}

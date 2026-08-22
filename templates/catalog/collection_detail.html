@@ -1,12 +1,129 @@
 {% extends 'base.html' %}
 
+
+{# ============================================================ #}
+{# PRIMARY SEO                                                  #}
+{# ============================================================ #}
+
 {% block title %}
-  {{ collection.title }} | Anarchy &amp; Lace
+  {% if collection.handle == "lace" %}
+    Japanese Kimono Silk Clothing | Lace | Anarchy &amp; Lace
+  {% elif collection.handle == "anarchy" %}
+    Alternative Reworked Clothing | Anarchy | Anarchy &amp; Lace
+  {% else %}
+    {{ collection.title }} | Anarchy &amp; Lace
+  {% endif %}
 {% endblock %}
 
 
+{% block meta_description %}
+
+  {% if collection.handle == "lace" %}
+
+    <meta
+      name="description"
+      content="Explore Lace by Anarchy &amp; Lace: one-of-a-kind garments created with reclaimed Japanese kimono silk, heritage textiles and carefully sourced clothing."
+    >
+
+  {% elif collection.handle == "anarchy" %}
+
+    <meta
+      name="description"
+      content="Explore Anarchy by Anarchy &amp; Lace: one-of-a-kind alternative reworked clothing featuring reconstructed garments, darker textiles and distinctive details."
+    >
+
+  {% else %}
+
+    <meta
+      name="description"
+      content="Explore the {{ collection.title }} collection from Anarchy &amp; Lace, featuring one-of-a-kind reworked garments and carefully sourced textiles."
+    >
+
+  {% endif %}
+
+{% endblock %}
+
+
+
+{# ============================================================ #}
+{# OPEN GRAPH                                                   #}
+{# ============================================================ #}
+
+{% block og_title %}
+
+  {% if collection.handle == "lace" %}
+    Lace | Japanese Kimono Silk Clothing | Anarchy &amp; Lace
+  {% elif collection.handle == "anarchy" %}
+    Anarchy | Alternative Reworked Clothing | Anarchy &amp; Lace
+  {% else %}
+    {{ collection.title }} | Anarchy &amp; Lace
+  {% endif %}
+
+{% endblock %}
+
+
+{% block og_description %}
+
+  {% if collection.handle == "lace" %}
+    One-of-a-kind garments created with reclaimed Japanese kimono silk, heritage textiles and carefully sourced clothing.
+  {% elif collection.handle == "anarchy" %}
+    Alternative reworked clothing, reconstructed garments and darker textiles with a distinctive edge.
+  {% else %}
+    Explore one-of-a-kind pieces from the {{ collection.title }} collection by Anarchy &amp; Lace.
+  {% endif %}
+
+{% endblock %}
+
+
+{% block og_type %}
+  website
+{% endblock %}
+
+
+
+{# ============================================================ #}
+{# X / TWITTER                                                  #}
+{# ============================================================ #}
+
+{% block twitter_title %}
+
+  {% if collection.handle == "lace" %}
+    Lace | Japanese Kimono Silk Clothing | Anarchy &amp; Lace
+  {% elif collection.handle == "anarchy" %}
+    Anarchy | Alternative Reworked Clothing | Anarchy &amp; Lace
+  {% else %}
+    {{ collection.title }} | Anarchy &amp; Lace
+  {% endif %}
+
+{% endblock %}
+
+
+{% block twitter_description %}
+
+  {% if collection.handle == "lace" %}
+    One-of-a-kind garments created with reclaimed Japanese kimono silk, heritage textiles and carefully sourced clothing.
+  {% elif collection.handle == "anarchy" %}
+    Alternative reworked clothing, reconstructed garments and darker textiles with a distinctive edge.
+  {% else %}
+    Explore one-of-a-kind pieces from the {{ collection.title }} collection by Anarchy &amp; Lace.
+  {% endif %}
+
+{% endblock %}
+
+
+
+{# ============================================================ #}
+{# PAGE CONTENT                                                 #}
+{# ============================================================ #}
+
 {% block content %}
+
   <section class="shop">
+
+
+    {# ======================================================== #}
+    {# COLLECTION INTRO                                        #}
+    {# ======================================================== #}
 
     <div class="shop-top glass-panel">
 
@@ -16,20 +133,47 @@
           Anarchy &amp; Lace
         </p>
 
+
         <h1>
           {{ collection.title }}
         </h1>
 
+
         {% if collection.description %}
+
           <p>
             {{ collection.description }}
           </p>
+
+        {% else %}
+
+          {% if collection.handle == "lace" %}
+
+            <p>
+              One-of-a-kind garments created with reclaimed Japanese
+              kimono silk and carefully sourced heritage textiles.
+            </p>
+
+          {% elif collection.handle == "anarchy" %}
+
+            <p>
+              Alternative reworked clothing, reconstructed garments
+              and darker textiles with a sharper edge.
+            </p>
+
+          {% endif %}
+
         {% endif %}
 
       </header>
 
     </div>
 
+
+
+    {# ======================================================== #}
+    {# PRODUCT GRID                                             #}
+    {# ======================================================== #}
 
     <div class="product-grid">
 
@@ -39,6 +183,9 @@
           class="product-card"
           href="{% url 'catalog:product_detail' slug=product.handle %}"
         >
+
+
+          {# PRODUCT IMAGE #}
 
           <div class="product-media">
 
@@ -62,6 +209,9 @@
           </div>
 
 
+
+          {# PRODUCT INFORMATION #}
+
           <div class="product-meta">
 
             <h2 class="product-title">
@@ -78,22 +228,39 @@
             {% endif %}
 
 
+
             <div class="product-card__footer">
 
-              {% if product.selectedOrFirstAvailableVariant.availableForSale %}
 
-                <span class="product-availability">
-                  Available
-                </span>
+              {# AVAILABILITY #}
+
+              {% if product.selectedOrFirstAvailableVariant %}
+
+                {% if product.selectedOrFirstAvailableVariant.availableForSale %}
+
+                  <span class="product-availability">
+                    Available
+                  </span>
+
+                {% else %}
+
+                  <span class="product-sold">
+                    Sold
+                  </span>
+
+                {% endif %}
 
               {% else %}
 
                 <span class="product-sold">
-                  Sold
+                  Unavailable
                 </span>
 
               {% endif %}
 
+
+
+              {# SIZE #}
 
               {% if product.selectedOrFirstAvailableVariant %}
 
@@ -118,6 +285,7 @@
         </a>
 
 
+
       {% empty %}
 
         <div class="glass-panel">
@@ -133,6 +301,11 @@
     </div>
 
 
+
+    {# ======================================================== #}
+    {# BACK TO SHOP                                             #}
+    {# ======================================================== #}
+
     <div class="shop-back">
 
       <a
@@ -145,4 +318,5 @@
     </div>
 
   </section>
+
 {% endblock %}

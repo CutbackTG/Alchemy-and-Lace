@@ -1,27 +1,74 @@
 {% extends "base.html" %}
 
-{% block title %}Gallery | Anarchy &amp; Lace{% endblock %}
+
+{% block title %}
+  Reworked Clothing Gallery &amp; Kimono Silk | Anarchy &amp; Lace
+{% endblock %}
+
+
+{% block meta_description %}
+  <meta
+    name="description"
+    content="Explore one-of-a-kind reworked clothing by Anarchy &amp; Lace, including garments created with reclaimed Japanese kimono silk and vintage textiles."
+  >
+{% endblock %}
+
+
+{% block og_title %}
+  Reworked Clothing Gallery | Anarchy &amp; Lace
+{% endblock %}
+
+
+{% block og_description %}
+  Explore one-of-a-kind reworked garments created with reclaimed Japanese kimono silk, vintage textiles and carefully sourced clothing.
+{% endblock %}
+
+
+{% block og_type %}
+  website
+{% endblock %}
+
+
+{% block twitter_title %}
+  Reworked Clothing Gallery | Anarchy &amp; Lace
+{% endblock %}
+
+
+{% block twitter_description %}
+  Explore one-of-a-kind reworked garments created with reclaimed Japanese kimono silk, vintage textiles and carefully sourced clothing.
+{% endblock %}
+
 
 {% block content %}
+
 <div class="shop">
 
   <div class="shop-top glass-panel">
 
     <header class="shop-header">
-      <p class="mag-kicker">The collection</p>
 
-      <h1>Kimono Textile Gallery</h1>
+      <p class="mag-kicker">
+        The collection
+      </p>
+
+      <h1>
+        Reworked Clothing &amp; Kimono Textile Gallery
+      </h1>
 
       <p>
-        One-of-a-kind garments made from reclaimed Japanese textiles.
+        One-of-a-kind garments created with reclaimed Japanese kimono silk,
+        vintage textiles and carefully sourced clothing.
       </p>
 
       <p>
-        Hand-stitched and individually curated for a sustainable and timeless wardrobe.
+        Individually reworked and curated to preserve exceptional textiles
+        while giving them a new life in contemporary fashion.
       </p>
+
     </header>
 
   </div>
+
 
   <div class="product-grid">
 
@@ -53,36 +100,71 @@
 
         </div>
 
+
         <div class="product-meta">
 
           <h2 class="product-title">
             {{ product.title }}
           </h2>
 
+
           {% if product.selectedOrFirstAvailableVariant %}
 
             <p class="product-price">
-              £{{ product.selectedOrFirstAvailableVariant.price.amount }}
+              £{{ product.selectedOrFirstAvailableVariant.price.amount|floatformat:2 }}
             </p>
 
           {% endif %}
 
-          {% if not product.availableForSale %}
 
-            <p class="product-sold">
-              Sold
-            </p>
+          <div class="product-card__footer">
 
-          {% endif %}
+            {% if product.selectedOrFirstAvailableVariant.availableForSale %}
+
+              <span class="product-availability">
+                Available
+              </span>
+
+            {% else %}
+
+              <span class="product-sold">
+                Sold
+              </span>
+
+            {% endif %}
+
+
+            {% if product.selectedOrFirstAvailableVariant %}
+
+              {% for option in product.selectedOrFirstAvailableVariant.selectedOptions %}
+
+                {% if option.name|lower == "size" %}
+
+                  <span class="product-card__size">
+                    Size {{ option.value }}
+                  </span>
+
+                {% endif %}
+
+              {% endfor %}
+
+            {% endif %}
+
+          </div>
 
         </div>
 
       </a>
 
+
     {% empty %}
 
       <div class="glass-panel">
-        <p>The next pieces are being prepared for the gallery.</p>
+
+        <p>
+          The next pieces are being prepared for the gallery.
+        </p>
+
       </div>
 
     {% endfor %}
@@ -90,4 +172,5 @@
   </div>
 
 </div>
+
 {% endblock %}
