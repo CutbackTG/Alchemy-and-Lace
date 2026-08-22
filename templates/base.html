@@ -4,11 +4,26 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Anarchy & Lace creates one-of-a-kind garments from reclaimed Japanese kimono textiles." />
+    {% block meta_description %}
+      <meta name="description" content="Anarchy & Lace creates one-of-a-kind garments from reclaimed Japanese kimono textiles." />
+    {% endblock %}
+
+    {% block canonical %}
+      <link rel="canonical" href="https://www.anarchyandlace.co.uk{{ request.path }}" />
+    {% endblock %}
+
+    {% block structured_data %}
+
+    {% endblock %}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'logos/favicon-32x32.png' %}" />
+
+    <link rel="shortcut icon" href="{% static 'logos/favicon.ico' %}" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'logos/apple-touch-icon.png' %}" />
     {% block extra_css %}
 
     {% endblock %}

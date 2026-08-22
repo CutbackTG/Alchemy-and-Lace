@@ -1,16 +1,90 @@
 {% extends 'base.html' %}
 {% load static %}
 
+
 {% block title %}
   {{ product.title }} | Anarchy &amp; Lace
 {% endblock %}
+
+
+{% block meta_description %}
+  {% if product.description %}
+    <meta
+      name="description"
+      content="{{ product.description|striptags|truncatechars:155 }}"
+    >
+  {% else %}
+    <meta
+      name="description"
+      content="One-of-a-kind garment from Anarchy and Lace."
+    >
+  {% endif %}
+{% endblock %}
+
+{% block canonical %}
+  <link
+    rel="canonical"
+    href="{{ canonical_url }}"
+  >
+{% endblock %}
+
+
+{% block structured_data %}
+  {% if product.selectedOrFirstAvailableVariant %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "{{ product.title|escapejs }}",
+      "description": "{% if product.description %}{{ product.description|striptags|escapejs }}{% else %}One-of-a-kind garment from Anarchy and Lace.{% endif %}",
+
+      {% if product.images.nodes %}
+      "image": [
+        {% for img in product.images.nodes %}
+          "{{ img.url|escapejs }}"{% if not forloop.last %},{% endif %}
+        {% endfor %}
+      ],
+      {% elif product.featuredImage %}
+      "image": [
+        "{{ product.featuredImage.url|escapejs }}"
+      ],
+      {% endif %}
+
+      "brand": {
+        "@type": "Brand",
+        "name": "Anarchy & Lace"
+      },
+
+      {% if product.selectedOrFirstAvailableVariant.sku %}
+      "sku": "{{ product.selectedOrFirstAvailableVariant.sku|escapejs }}",
+      {% endif %}
+
+      "offers": {
+        "@type": "Offer",
+        "url": "{{ canonical_url|escapejs }}",
+        "priceCurrency": "{{ product.selectedOrFirstAvailableVariant.price.currencyCode }}",
+        "price": "{{ product.selectedOrFirstAvailableVariant.price.amount }}",
+        "availability": "{% if product.selectedOrFirstAvailableVariant.availableForSale %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
+        "seller": {
+          "@type": "Organization",
+          "name": "Anarchy & Lace"
+        }
+      }
+    }
+    </script>
+  {% endif %}
+{% endblock %}
+
 
 {% block content %}
   <section class="pd">
 
     <div class="pd-gallery glass-panel">
 
-      <div class="pd-viewerbar" aria-label="Image view controls">
+      <div
+        class="pd-viewerbar"
+        aria-label="Image view controls"
+      >
         <button
           type="button"
           class="pd-viewerbtn is-active"
@@ -29,8 +103,10 @@
       </div>
 
 
-      <div class="pd-main" aria-label="Main product image">
-
+      <div
+        class="pd-main"
+        aria-label="Main product image"
+      >
         {% if product.featuredImage %}
           <img
             id="pdMainImg"
@@ -38,42 +114,35 @@
             src="{{ product.featuredImage.url }}"
             alt="{{ product.featuredImage.altText|default:product.title }}"
             loading="eager"
-          />
+          >
         {% else %}
           <div class="pd-main-placeholder">
             Image coming soon
           </div>
         {% endif %}
-
       </div>
 
 
       {% if product.images.nodes %}
-
         <div
           class="pd-thumbs"
           aria-label="Additional product images"
         >
-
           {% for img in product.images.nodes %}
-
             <button
               class="pd-thumb"
               type="button"
               data-src="{{ img.url }}"
-              aria-label="View image {{ forloop.counter }}"
+              aria-label="View image {{ forloop.counter }} of {{ product.title }}"
             >
               <img
                 src="{{ img.url }}"
                 alt="{{ img.altText|default:product.title }}"
                 loading="lazy"
-              />
+              >
             </button>
-
           {% endfor %}
-
         </div>
-
       {% endif %}
 
     </div>
@@ -91,16 +160,13 @@
 
 
       {% if product.descriptionHtml %}
-
         <div class="pd-desc pd-description">
           {{ product.descriptionHtml|safe }}
         </div>
-
       {% endif %}
 
 
       {% if product.selectedOrFirstAvailableVariant %}
-
         <div class="pd-meta">
 
           <p>
@@ -119,13 +185,12 @@
           </p>
 
         </div>
-
       {% endif %}
 
 
       <div class="pd-actions">
 
-        {% if product.selectedOrFirstAvailableVariant.availableForSale %}
+        {% if product.selectedOrFirstAvailableVariant and product.selectedOrFirstAvailableVariant.availableForSale %}
 
           <form
             method="post"
