@@ -4,54 +4,145 @@
   {{ collection.title }} | Anarchy &amp; Lace
 {% endblock %}
 
+
 {% block content %}
   <section class="shop">
-    <div class="shop-top glass-panel">
-      <header class="shop-header">
-        <p class="mag-kicker">Anarchy &amp; Lace</p>
 
-        <h1>{{ collection.title }}</h1>
+    <div class="shop-top glass-panel">
+
+      <header class="shop-header">
+
+        <p class="mag-kicker">
+          Anarchy &amp; Lace
+        </p>
+
+        <h1>
+          {{ collection.title }}
+        </h1>
 
         {% if collection.description %}
-          <p>{{ collection.description }}</p>
+          <p>
+            {{ collection.description }}
+          </p>
         {% endif %}
+
       </header>
+
     </div>
+
 
     <div class="product-grid">
+
       {% for product in products %}
-        <a class="product-card" href="{% url 'catalog:product_detail' slug=product.handle %}">
+
+        <a
+          class="product-card"
+          href="{% url 'catalog:product_detail' slug=product.handle %}"
+        >
+
           <div class="product-media">
+
             {% if product.featuredImage %}
-              <img src="{{ product.featuredImage.url }}" alt="{{ product.featuredImage.altText|default:product.title }}" class="product-img" loading="lazy" />
+
+              <img
+                src="{{ product.featuredImage.url }}"
+                alt="{{ product.featuredImage.altText|default:product.title }}"
+                class="product-img"
+                loading="lazy"
+              >
+
             {% else %}
-              <div class="img-placeholder">Image coming soon</div>
+
+              <div class="img-placeholder">
+                Image coming soon
+              </div>
+
             {% endif %}
+
           </div>
+
 
           <div class="product-meta">
-            <h2 class="product-title">{{ product.title }}</h2>
+
+            <h2 class="product-title">
+              {{ product.title }}
+            </h2>
+
 
             {% if product.selectedOrFirstAvailableVariant %}
-              <p class="product-price">£{{ product.selectedOrFirstAvailableVariant.price.amount|floatformat:2 }}</p>
+
+              <p class="product-price">
+                £{{ product.selectedOrFirstAvailableVariant.price.amount|floatformat:2 }}
+              </p>
+
             {% endif %}
 
-            {% if product.availableForSale %}
-              <p class="product-availability">Available</p>
-            {% else %}
-              <p class="product-sold">Sold</p>
-            {% endif %}
+
+            <div class="product-card__footer">
+
+              {% if product.selectedOrFirstAvailableVariant.availableForSale %}
+
+                <span class="product-availability">
+                  Available
+                </span>
+
+              {% else %}
+
+                <span class="product-sold">
+                  Sold
+                </span>
+
+              {% endif %}
+
+
+              {% if product.selectedOrFirstAvailableVariant %}
+
+                {% for option in product.selectedOrFirstAvailableVariant.selectedOptions %}
+
+                  {% if option.name|lower == "size" %}
+
+                    <span class="product-card__size">
+                      Size {{ option.value }}
+                    </span>
+
+                  {% endif %}
+
+                {% endfor %}
+
+              {% endif %}
+
+            </div>
+
           </div>
+
         </a>
+
+
       {% empty %}
+
         <div class="glass-panel">
-          <p>No pieces are currently available in this collection.</p>
+
+          <p>
+            No pieces are currently available in this collection.
+          </p>
+
         </div>
+
       {% endfor %}
+
     </div>
+
 
     <div class="shop-back">
-      <a href="{% url 'catalog:shop' %}" class="button">Back to Shop</a>
+
+      <a
+        href="{% url 'catalog:shop' %}"
+        class="button"
+      >
+        Back to Shop
+      </a>
+
     </div>
+
   </section>
 {% endblock %}

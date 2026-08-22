@@ -69,14 +69,16 @@ PRODUCT_FIELDS = """
     }
 
     selectedOrFirstAvailableVariant {
-        id
-        sku
-        title
-        availableForSale
-
         price {
             amount
             currencyCode
+        }
+
+        availableForSale
+
+        selectedOptions {
+            name
+            value
         }
     }
 """

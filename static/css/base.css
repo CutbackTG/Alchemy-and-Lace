@@ -1,6 +1,6 @@
 /* =========================================================
    Anarchy & Lace — base.css
-   Gallery-only production stylesheet
+   Production stylesheet
    Mobile-first, accessible, and free of obsolete commerce/auth rules
    ========================================================= */
 
@@ -1137,6 +1137,9 @@ textarea {
 }
 
 .product-meta {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
   padding: 14px 15px 16px;
 }
 
@@ -1155,6 +1158,38 @@ textarea {
   font-weight: 600;
   opacity: 1;
   visibility: visible;
+}
+
+.product-card__footer {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: auto;
+  padding-top: 0.35rem;
+}
+
+.product-availability,
+.product-sold {
+  margin: 0;
+}
+
+.product-availability {
+  color: var(--ink-muted);
+}
+
+.product-sold {
+  color: var(--danger);
+}
+
+.product-card__size {
+  margin-left: auto;
+  white-space: nowrap;
+  color: var(--ink-muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 /* =========================================================
@@ -1800,6 +1835,10 @@ html[data-theme="dark"] .nav-mobile__panel {
   }
 }
 
+/* =========================================================
+   15. PRODUCT DESCRIPTION RICH TEXT
+   ========================================================= */
+
 .pd-description {
     max-width: 760px;
     line-height: 1.75;
@@ -1826,6 +1865,10 @@ html[data-theme="dark"] .nav-mobile__panel {
 .pd-description li {
     margin-bottom: 0.4rem;
 }
+
+/* =========================================================
+   16. SHOP CHOICE / COLLECTION LANDING
+   ========================================================= */
 
 .shop-choice {
   width: min(1200px, 92%);
@@ -2006,36 +2049,9 @@ html[data-theme="dark"] .nav-mobile__panel {
   }
 }
 
-.nav-bag {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-    position: relative;
-    text-decoration: none;
-    color:inherit;
-}
-
-.nav-bag__icon {
-    width: 1.15em;
-    height: 1.15em;
-    flex-shrink: 0;
-}
-
-.nav-bag__count {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    min-width: 1.35rem;
-    height: 1.35rem;
-    padding: 0 0.3rem;
-
-    border: 1px solid currentColor;
-    border-radius: 50%;
-
-    font-size: 0.7rem;
-    line-height: 1;
-}
+/* =========================================================
+   17. SHOPPING BAG
+   ========================================================= */
 
 .bag-page {
     width: min(1200px, 92%);
@@ -2164,21 +2180,6 @@ html[data-theme="dark"] .nav-mobile__panel {
     }
 }
 
-.product-availability,
-.product-sold {
-    margin: 0;
-}
-
-.product-price {
-    display: block;
-    margin: 0.35rem 0 0.25rem;
-    font-size: 1.15rem;
-    font-weight: 600;
-    color: inherit;
-    opacity: 1;
-    visibility: visible;
-}
-
 .nav-bag {
   display: inline-flex;
   align-items: center;
@@ -2227,7 +2228,7 @@ html[data-theme="dark"] .nav-mobile__panel {
 }
 
 /* =========================================================
-   PRODUCT DETAIL BUTTON SPACING
+   18. PRODUCT DETAIL ACTIONS
    ========================================================= */
 
 .pd-info .button + .button {
@@ -2241,7 +2242,7 @@ html[data-theme="dark"] .nav-mobile__panel {
 }
 
 /* =========================================================
-   ANALYTICS DASHBOARD
+   19. ANALYTICS DASHBOARD
    ========================================================= */
 
 .analytics-page {
