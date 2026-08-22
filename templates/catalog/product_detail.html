@@ -16,18 +16,96 @@
   {% else %}
     <meta
       name="description"
-      content="One-of-a-kind garment from Anarchy and Lace."
+      content="One-of-a-kind garment from Anarchy &amp; Lace."
     >
   {% endif %}
 {% endblock %}
 
-{% block canonical %}
-  <link
-    rel="canonical"
-    href="{{ canonical_url }}"
-  >
+
+{# ============================================================ #}
+{# OPEN GRAPH                                                   #}
+{# ============================================================ #}
+
+{% block og_title %}
+  {{ product.title }} | Anarchy &amp; Lace
 {% endblock %}
 
+
+{% block og_description %}
+  {% if product.description %}
+    {{ product.description|striptags|truncatechars:200 }}
+  {% else %}
+    One-of-a-kind garment from Anarchy &amp; Lace.
+  {% endif %}
+{% endblock %}
+
+
+{% block og_type %}
+  product
+{% endblock %}
+
+
+{% block og_url %}
+  https://www.anarchyandlace.co.uk{{ request.path }}
+{% endblock %}
+
+
+{% block og_image %}
+  {% if product.featuredImage %}
+    {{ product.featuredImage.url }}
+  {% else %}
+    https://www.anarchyandlace.co.uk{% static 'logos/anarchy_and_lace_logo_plain_black.png' %}
+  {% endif %}
+{% endblock %}
+
+
+{% block og_image_alt %}
+  {% if product.featuredImage and product.featuredImage.altText %}
+    {{ product.featuredImage.altText }}
+  {% else %}
+    {{ product.title }} by Anarchy &amp; Lace
+  {% endif %}
+{% endblock %}
+
+
+{# ============================================================ #}
+{# X / TWITTER                                                  #}
+{# ============================================================ #}
+
+{% block twitter_title %}
+  {{ product.title }} | Anarchy &amp; Lace
+{% endblock %}
+
+
+{% block twitter_description %}
+  {% if product.description %}
+    {{ product.description|striptags|truncatechars:200 }}
+  {% else %}
+    One-of-a-kind garment from Anarchy &amp; Lace.
+  {% endif %}
+{% endblock %}
+
+
+{% block twitter_image %}
+  {% if product.featuredImage %}
+    {{ product.featuredImage.url }}
+  {% else %}
+    https://www.anarchyandlace.co.uk{% static 'logos/anarchy_and_lace_logo_plain_black.png' %}
+  {% endif %}
+{% endblock %}
+
+
+{% block twitter_image_alt %}
+  {% if product.featuredImage and product.featuredImage.altText %}
+    {{ product.featuredImage.altText }}
+  {% else %}
+    {{ product.title }} by Anarchy &amp; Lace
+  {% endif %}
+{% endblock %}
+
+{# ============================================================ #}
+{# PRODUCT STRUCTURED DATA                                      #}
+{# ============================================================ #}
 
 {% block structured_data %}
   {% if product.selectedOrFirstAvailableVariant %}
@@ -61,7 +139,7 @@
 
       "offers": {
         "@type": "Offer",
-        "url": "{{ canonical_url|escapejs }}",
+        "url": "https://www.anarchyandlace.co.uk{{ request.path|escapejs }}",
         "priceCurrency": "{{ product.selectedOrFirstAvailableVariant.price.currencyCode }}",
         "price": "{{ product.selectedOrFirstAvailableVariant.price.amount }}",
         "availability": "{% if product.selectedOrFirstAvailableVariant.availableForSale %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
@@ -75,6 +153,10 @@
   {% endif %}
 {% endblock %}
 
+
+{# ============================================================ #}
+{# PAGE CONTENT                                                  #}
+{# ============================================================ #}
 
 {% block content %}
   <section class="pd">

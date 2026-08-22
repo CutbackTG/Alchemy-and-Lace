@@ -1,126 +1,426 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en-GB">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- =========================================================
+         PRIMARY SEO
+         ========================================================= -->
+
+    <title>
+        {% block title %}
+            Anarchy &amp; Lace | One-of-a-Kind Reworked Clothing
+        {% endblock %}
+    </title>
+
     {% block meta_description %}
-      <meta name="description" content="Anarchy & Lace creates one-of-a-kind garments from reclaimed Japanese kimono textiles." />
+        <meta
+            name="description"
+            content="Anarchy &amp; Lace creates one-of-a-kind garments from reclaimed Japanese kimono textiles."
+        >
     {% endblock %}
 
     {% block canonical %}
-      <link rel="canonical" href="https://www.anarchyandlace.co.uk{{ request.path }}" />
+        <link
+            rel="canonical"
+            href="https://www.anarchyandlace.co.uk{{ request.path }}"
+        >
     {% endblock %}
+
+
+    <!-- =========================================================
+         OPEN GRAPH
+         Facebook, WhatsApp, LinkedIn, Pinterest, etc.
+         ========================================================= -->
+
+    <meta
+        property="og:title"
+        content="{% block og_title %}Anarchy &amp; Lace | One-of-a-Kind Reworked Clothing{% endblock %}"
+    >
+
+    <meta
+        property="og:description"
+        content="{% block og_description %}One-of-a-kind garments created from reclaimed Japanese kimono textiles and carefully sourced vintage fabrics.{% endblock %}"
+    >
+
+    <meta
+        property="og:type"
+        content="{% block og_type %}website{% endblock %}"
+    >
+
+    <meta
+        property="og:url"
+        content="{% block og_url %}https://www.anarchyandlace.co.uk{{ request.path }}{% endblock %}"
+    >
+
+    <meta
+        property="og:image"
+        content="{% block og_image %}https://www.anarchyandlace.co.uk{% static 'logos/anarchy_and_lace_logo_plain_black.png' %}{% endblock %}"
+    >
+
+    <meta
+        property="og:image:alt"
+        content="{% block og_image_alt %}Anarchy &amp; Lace{% endblock %}"
+    >
+
+    <meta property="og:site_name" content="Anarchy &amp; Lace">
+    <meta property="og:locale" content="en_GB">
+
+
+    <!-- =========================================================
+         X / TWITTER CARDS
+         ========================================================= -->
+
+    <meta name="twitter:card" content="summary_large_image">
+
+    <meta
+        name="twitter:title"
+        content="{% block twitter_title %}Anarchy &amp; Lace | One-of-a-Kind Reworked Clothing{% endblock %}"
+    >
+
+    <meta
+        name="twitter:description"
+        content="{% block twitter_description %}One-of-a-kind garments created from reclaimed Japanese kimono textiles and carefully sourced vintage fabrics.{% endblock %}"
+    >
+
+    <meta
+        name="twitter:image"
+        content="{% block twitter_image %}https://www.anarchyandlace.co.uk{% static 'logos/anarchy_and_lace_logo_plain_black.png' %}{% endblock %}"
+    >
+
+    <meta
+        name="twitter:image:alt"
+        content="{% block twitter_image_alt %}Anarchy &amp; Lace{% endblock %}"
+    >
+
+
+    <!-- =========================================================
+         STRUCTURED DATA
+         Individual pages can insert JSON-LD here
+         ========================================================= -->
 
     {% block structured_data %}
-
     {% endblock %}
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'logos/favicon-32x32.png' %}" />
 
-    <link rel="shortcut icon" href="{% static 'logos/favicon.ico' %}" />
 
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'logos/apple-touch-icon.png' %}" />
+    <!-- =========================================================
+         FONTS
+         ========================================================= -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- =========================================================
+         STYLES
+         ========================================================= -->
+
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
     {% block extra_css %}
-
     {% endblock %}
-    <title>
-      {% block title %}
-        Anarchy &amp; Lace
-      {% endblock %}
-    </title>
-  </head>
-  <body>
+
+
+    <!-- =========================================================
+         FAVICONS
+         ========================================================= -->
+
+    <link
+        rel="icon"
+        type="image/png"
+        sizes="32x32"
+        href="{% static 'logos/favicon-32x32.png' %}"
+    >
+
+    <link
+        rel="shortcut icon"
+        href="{% static 'logos/favicon.ico' %}"
+    >
+
+    <link
+        rel="apple-touch-icon"
+        sizes="180x180"
+        href="{% static 'logos/apple-touch-icon.png' %}"
+    >
+
+</head>
+
+<body>
+
+    <!-- =========================================================
+         HEADER
+         ========================================================= -->
+
     <header class="topbar fixed-top">
-      <div class="container d-flex justify-content-between align-items-center py-3 nav-wrap">
-        <a href="{% url 'home:home' %}" class="brand text-decoration-none">
-          <img class="brand-logo" src="{% static 'logos/anarchy_and_lace_logo_plain_black.png' %}" alt="Anarchy &amp; Lace" />
-          <span class="brand-text"><span class="brand-mark">Anarchy</span><span class="brand-amp">&amp;</span><span class="brand-mark">Lace</span></span>
-        </a>
 
-        <nav class="nav-desktop" aria-label="Primary navigation">
-          <a class="nav-link {% if active_menu_item == 'shop' %}active{% endif %}" href="{% url 'catalog:shop' %}">Shop</a>
-          <a class="nav-link {% if active_menu_item == 'kimono_history' %}active{% endif %}" href="{% url 'home:kimono_history' %}">Kimono Fabric</a>
-          <a class="nav-link {% if active_menu_item == 'contact' %}active{% endif %}" href="{% url 'home:contact' %}">Contact</a>
-          <a href="{% url 'catalog:bag' %}" class="nav-bag" aria-label="Shopping bag">
-            <svg class="nav-bag__icon" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M6 8h12l-1 12H7L6 8Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
-              <path d="M9 9V6a3 3 0 0 1 6 0v3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-            </svg>
+        <div class="container d-flex justify-content-between align-items-center py-3 nav-wrap">
 
-            <span>Bag</span>
+            <a
+                href="{% url 'home:home' %}"
+                class="brand text-decoration-none"
+            >
+                <img
+                    class="brand-logo"
+                    src="{% static 'logos/anarchy_and_lace_logo_plain_black.png' %}"
+                    alt="Anarchy &amp; Lace"
+                >
 
-            {% if request.session.shopify_cart_quantity %}
-              <span class="nav-bag__count">{{ request.session.shopify_cart_quantity }}</span>
-            {% endif %}
-          </a>
-        </nav>
-
-        <details class="nav-mobile">
-          <summary class="nav-mobile__trigger" aria-label="Open menu">
-            <span class="nav-mobile__icon">☰</span>
-            <span class="nav-mobile__label">Menu</span>
-          </summary>
-
-          <nav class="nav-mobile__panel glass-panel" aria-label="Mobile navigation">
-            <a class="nav-link nav-link--block" href="{% url 'catalog:shop' %}">Shop</a>
-
-            <a class="nav-link nav-link--block" href="{% url 'home:kimono_history' %}">Kimono Fabric</a>
-
-            <a class="nav-link nav-link--block" href="{% url 'home:contact' %}">Contact</a>
-
-            <div class="nav-mobile__divider"></div>
-
-            <a class="nav-link nav-link--block nav-bag nav-bag--mobile" href="{% url 'catalog:bag' %}">
-              <svg class="nav-bag__icon" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M6 8h12l-1 12H7L6 8Z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
-                <path d="M9 9V6a3 3 0 0 1 6 0v3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-              </svg>
-
-              <span>Bag</span>
-
-              {% if request.session.shopify_cart_quantity %}
-                <span class="nav-bag__count">{{ request.session.shopify_cart_quantity }}</span>
-              {% endif %}
+                <span class="brand-text">
+                    <span class="brand-mark">Anarchy</span>
+                    <span class="brand-amp">&amp;</span>
+                    <span class="brand-mark">Lace</span>
+                </span>
             </a>
-          </nav>
-        </details>
 
-        <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle colour theme"><span class="theme-toggle__icon">☾</span></button>
-      </div>
-      <div class="kintsugi-line"></div>
+
+            <!-- Desktop navigation -->
+
+            <nav class="nav-desktop" aria-label="Primary navigation">
+
+                <a
+                    class="nav-link {% if active_menu_item == 'shop' %}active{% endif %}"
+                    href="{% url 'catalog:shop' %}"
+                >
+                    Shop
+                </a>
+
+                <a
+                    class="nav-link {% if active_menu_item == 'kimono_history' %}active{% endif %}"
+                    href="{% url 'home:kimono_history' %}"
+                >
+                    Kimono Fabric
+                </a>
+
+                <a
+                    class="nav-link {% if active_menu_item == 'contact' %}active{% endif %}"
+                    href="{% url 'home:contact' %}"
+                >
+                    Contact
+                </a>
+
+                <a
+                    href="{% url 'catalog:bag' %}"
+                    class="nav-bag"
+                    aria-label="Shopping bag"
+                >
+                    <svg
+                        class="nav-bag__icon"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                    >
+                        <path
+                            d="M6 8h12l-1 12H7L6 8Z"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            stroke-linejoin="round"
+                        />
+
+                        <path
+                            d="M9 9V6a3 3 0 0 1 6 0v3"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                        />
+                    </svg>
+
+                    <span>Bag</span>
+
+                    {% if request.session.shopify_cart_quantity %}
+                        <span class="nav-bag__count">
+                            {{ request.session.shopify_cart_quantity }}
+                        </span>
+                    {% endif %}
+                </a>
+
+            </nav>
+
+
+            <!-- Mobile navigation -->
+
+            <details class="nav-mobile">
+
+                <summary
+                    class="nav-mobile__trigger"
+                    aria-label="Open menu"
+                >
+                    <span class="nav-mobile__icon">☰</span>
+                    <span class="nav-mobile__label">Menu</span>
+                </summary>
+
+                <nav
+                    class="nav-mobile__panel glass-panel"
+                    aria-label="Mobile navigation"
+                >
+
+                    <a
+                        class="nav-link nav-link--block"
+                        href="{% url 'catalog:shop' %}"
+                    >
+                        Shop
+                    </a>
+
+                    <a
+                        class="nav-link nav-link--block"
+                        href="{% url 'home:kimono_history' %}"
+                    >
+                        Kimono Fabric
+                    </a>
+
+                    <a
+                        class="nav-link nav-link--block"
+                        href="{% url 'home:contact' %}"
+                    >
+                        Contact
+                    </a>
+
+                    <div class="nav-mobile__divider"></div>
+
+                    <a
+                        class="nav-link nav-link--block nav-bag nav-bag--mobile"
+                        href="{% url 'catalog:bag' %}"
+                    >
+                        <svg
+                            class="nav-bag__icon"
+                            viewBox="0 0 24 24"
+                            aria-hidden="true"
+                        >
+                            <path
+                                d="M6 8h12l-1 12H7L6 8Z"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.5"
+                                stroke-linejoin="round"
+                            />
+
+                            <path
+                                d="M9 9V6a3 3 0 0 1 6 0v3"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                            />
+                        </svg>
+
+                        <span>Bag</span>
+
+                        {% if request.session.shopify_cart_quantity %}
+                            <span class="nav-bag__count">
+                                {{ request.session.shopify_cart_quantity }}
+                            </span>
+                        {% endif %}
+
+                    </a>
+
+                </nav>
+
+            </details>
+
+
+            <!-- Theme toggle -->
+
+            <button
+                id="themeToggle"
+                class="theme-toggle"
+                type="button"
+                aria-label="Toggle colour theme"
+            >
+                <span class="theme-toggle__icon">☾</span>
+            </button>
+
+        </div>
+
+        <div class="kintsugi-line"></div>
+
     </header>
 
+
+    <!-- =========================================================
+         DJANGO MESSAGES
+         ========================================================= -->
+
     {% if messages %}
-      <div class="flash-stack" aria-live="polite" aria-atomic="true">
-        <div class="messages">
-          {% for message in messages %}
-            <div class="message {{ message.tags }}">{{ message }}</div>
-          {% endfor %}
+
+        <div
+            class="flash-stack"
+            aria-live="polite"
+            aria-atomic="true"
+        >
+
+            <div class="messages">
+
+                {% for message in messages %}
+
+                    <div class="message {{ message.tags }}">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
         </div>
-      </div>
+
     {% endif %}
 
-    <main class="container page">
-      {% block content %}
 
-      {% endblock %}
+    <!-- =========================================================
+         MAIN CONTENT
+         ========================================================= -->
+
+    <main class="container page">
+
+        {% block content %}
+        {% endblock %}
+
     </main>
 
+
+    <!-- =========================================================
+         FOOTER
+         ========================================================= -->
+
     <footer class="site-footer">
-      <div class="container footer-inner">
-        <span class="footer-brand">Anarchy &amp; Lace</span>
-        <span class="footer-sep">·</span>
-        <span class="footer-copy">One-of-a-kind garments from reclaimed Japanese textiles</span>
-      </div>
+
+        <div class="container footer-inner">
+
+            <span class="footer-brand">
+                Anarchy &amp; Lace
+            </span>
+
+            <span class="footer-sep">·</span>
+
+            <span class="footer-copy">
+                One-of-a-kind garments from reclaimed Japanese textiles
+            </span>
+
+        </div>
+
     </footer>
 
-    <script src="{% static 'js/theme.js' %}" defer></script>
-    {% block extra_js %}
 
+    <!-- =========================================================
+         JAVASCRIPT
+         ========================================================= -->
+
+    <script
+        src="{% static 'js/theme.js' %}"
+        defer
+    ></script>
+
+    {% block extra_js %}
     {% endblock %}
-  </body>
+
+</body>
+
 </html>
