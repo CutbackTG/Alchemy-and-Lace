@@ -25,7 +25,9 @@
   {% endif %}
 {% endblock %}
 
-
+{% block canonical %}
+  <link rel="canonical" href="{{ canonical_url }}">
+{% endblock %}
 
 {# ============================================================ #}
 {# OPEN GRAPH                                                   #}
@@ -152,7 +154,7 @@
       "offers": {
         "@type": "Offer",
 
-        "url": "https://www.anarchyandlace.co.uk{{ request.path|escapejs }}",
+        "url": "{{ canonical_url|escapejs }}",
 
         "priceCurrency": "{{ product.selectedOrFirstAvailableVariant.price.currencyCode }}",
 
