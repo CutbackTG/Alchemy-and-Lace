@@ -2555,3 +2555,33 @@ html[data-theme="dark"] .nav-mobile__panel {
     padding-bottom: 1.2rem;
   }
 }
+
+/* =========================
+   Homepage SEO introduction
+   ========================= */
+
+.home-intro {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 1.5rem;
+    text-align: center;
+}
+
+.home-intro .mag-kicker {
+    margin-bottom: 0.65rem;
+}
+
+.home-intro__title {
+    margin: 0;
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    line-height: 1.1;
+    font-weight: 600;
+}
+
+.home-intro__lead {
+    max-width: 700px;
+    margin: 0.9rem auto 0;
+    font-size: 1rem;
+    line-height: 1.7;
+    opacity: 0.8;
+}
