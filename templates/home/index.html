@@ -1,267 +1,166 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block structured_data %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://www.anarchyandlace.co.uk/#organization",
+        "name": "Anarchy & Lace",
+        "url": "https://www.anarchyandlace.co.uk/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://www.anarchyandlace.co.uk{% static 'logos/anarchy_and_lace_logo_plain_black.png' %}"
+        },
+        "description": "One-of-a-kind reworked clothing created with reclaimed Japanese kimono silk, vintage textiles and carefully sourced garments."
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://www.anarchyandlace.co.uk/#website",
+        "url": "https://www.anarchyandlace.co.uk/",
+        "name": "Anarchy & Lace",
+        "publisher": {
+          "@id": "https://www.anarchyandlace.co.uk/#organization"
+        },
+        "inLanguage": "en-GB"
+      }
+    ]
+  }
+  </script>
+{% endblock %}
 
 {% block title %}
   Reworked Clothing &amp; Japanese Kimono Silk | Anarchy &amp; Lace
 {% endblock %}
 
-
 {% block meta_description %}
-  <meta
-    name="description"
-    content="Discover one-of-a-kind reworked clothing by Anarchy &amp; Lace, created from reclaimed Japanese kimono silk, vintage textiles and carefully sourced garments."
-  >
+  <meta name="description" content="Discover one-of-a-kind reworked clothing by Anarchy &amp; Lace, created from reclaimed Japanese kimono silk, vintage textiles and carefully sourced garments." />
 {% endblock %}
-
 
 {% block og_title %}
   Reworked Clothing &amp; Japanese Kimono Silk | Anarchy &amp; Lace
 {% endblock %}
 
-
 {% block og_description %}
   One-of-a-kind reworked clothing created from reclaimed Japanese kimono silk, vintage textiles and carefully sourced garments.
 {% endblock %}
-
 
 {% block og_type %}
   website
 {% endblock %}
 
-
 {% block twitter_title %}
   Reworked Clothing &amp; Japanese Kimono Silk | Anarchy &amp; Lace
 {% endblock %}
-
 
 {% block twitter_description %}
   One-of-a-kind reworked clothing created from reclaimed Japanese kimono silk, vintage textiles and carefully sourced garments.
 {% endblock %}
 
-
 {% block content %}
+  <!-- PRIMARY HOMEPAGE HEADING -->
+  <section class="glass-panel hero__panel" aria-labelledby="home-title">
+    <p class="mag-kicker">Reworked clothing · Vintage Japanese textiles · One of one</p>
+
+    <h1 id="home-title" class="hero__title">One-of-a-Kind Reworked Clothing from Vintage Japanese &amp; Heritage Textiles</h1>
+
+    <p class="hero__lead">Reimagined garments combining carefully sourced clothing with reclaimed Japanese kimono silk and vintage textiles.</p>
+  </section>
 
   <!-- HERO FABRIC GALLERY PANEL -->
   <div class="glass-panel hero__panel hero__panel--gallery">
-
-    <div
-      class="fabric-card__img"
-      style="background-image: url('{% static 'background_images/fabrics/kimono_fabric.webp' %}');"
-    ></div>
-
+    <div class="fabric-card__img" style="background-image: url('{% static 'background_images/fabrics/kimono_fabric.webp' %}');"></div>
   </div>
 
-
   <div class="hero__grid">
-
     <!-- SHOP -->
     <div class="glass-panel hero-card">
+      <h3 class="hero-card__title">Explore our garment gallery</h3>
 
-      <h3 class="hero-card__title">
-        Explore our garment gallery
-      </h3>
+      <p>One-of-a-kind reworked clothing with a strong silhouette and a softer footprint.</p>
 
-      <p>
-        One-of-a-kind reworked clothing with a strong silhouette
-        and a softer footprint.
-      </p>
+      <a href="{% url 'catalog:shop' %}" class="image_button image_button--link" style="background-image: url('{% static 'img/range/shop_button.webp' %}');" aria-label="Explore the Anarchy &amp; Lace garment gallery"></a>
 
-      <a
-        href="{% url 'catalog:shop' %}"
-        class="image_button image_button--link"
-        style="background-image: url('{% static 'img/range/shop_button.webp' %}');"
-        aria-label="Explore the Anarchy &amp; Lace garment gallery"
-      ></a>
-
-      <a
-        class="nav-link hero-card__link"
-        href="{% url 'catalog:shop' %}"
-      >
-        View the Shop →
-      </a>
-
+      <a class="nav-link hero-card__link" href="{% url 'catalog:shop' %}">View the Shop →</a>
     </div>
-
 
     <!-- KIMONO SILK -->
     <div class="glass-panel hero-card">
+      <h3 class="hero-card__title">Authentic Vintage Japanese Kimono Silk</h3>
 
-      <h3 class="hero-card__title">
-        Authentic Vintage Japanese Kimono Silk
-      </h3>
+      <p>Reclaimed Japanese kimono silk, preserving historic beauty and artistry through contemporary fashion.</p>
 
-      <p>
-        Reclaimed Japanese kimono silk, preserving historic
-        beauty and artistry through contemporary fashion.
-      </p>
+      <a href="{% url 'home:kimono_history' %}" class="image_button image_button--link" style="background-image: url('{% static 'img/kimono/kimono_button.webp' %}');" aria-label="Discover the history of Japanese kimono silk"></a>
 
-      <a
-        href="{% url 'home:kimono_history' %}"
-        class="image_button image_button--link"
-        style="background-image: url('{% static 'img/kimono/kimono_button.webp' %}');"
-        aria-label="Discover the history of Japanese kimono silk"
-      ></a>
-
-      <a
-        class="nav-link hero-card__link"
-        href="{% url 'home:kimono_history' %}"
-      >
-        Kimono Fabric →
-      </a>
-
+      <a class="nav-link hero-card__link" href="{% url 'home:kimono_history' %}">Kimono Fabric →</a>
     </div>
-
 
     <!-- COMMISSIONS -->
     <div class="glass-panel hero-card">
+      <h3 class="hero-card__title">Bespoke Commissions</h3>
 
-      <h3 class="hero-card__title">
-        Bespoke Commissions
-      </h3>
+      <p>Have an idea for a personal piece, custom project or special event?</p>
 
-      <p>
-        Have an idea for a personal piece, custom project
-        or special event?
-      </p>
+      <a href="{% url 'home:contact' %}" class="image_button image_button--link" style="background-image: url('{% static 'img/commissions/commissions_button.webp' %}');" aria-label="Enquire about a bespoke Anarchy &amp; Lace commission"></a>
 
-      <a
-        href="{% url 'home:contact' %}"
-        class="image_button image_button--link"
-        style="background-image: url('{% static 'img/commissions/commissions_button.webp' %}');"
-        aria-label="Enquire about a bespoke Anarchy &amp; Lace commission"
-      ></a>
-
-      <a
-        class="nav-link hero-card__link"
-        href="{% url 'home:contact' %}"
-      >
-        Share your vision →
-      </a>
-
+      <a class="nav-link hero-card__link" href="{% url 'home:contact' %}">Share your vision →</a>
     </div>
-
   </div>
-
 
   <div class="hero__footer">
     <div class="kintsugi-line"></div>
   </div>
 
   {% if featured_products %}
+    <section class="home-featured">
+      <div class="home-featured__header">
+        <div>
+          <p class="mag-kicker">Selected from the collection</p>
 
-  <section class="home-featured">
+          <h2>Featured Pieces</h2>
+        </div>
 
-    <div class="home-featured__header">
-
-      <div>
-        <p class="mag-kicker">
-          Selected from the collection
-        </p>
-
-        <h2>
-          Featured Pieces
-        </h2>
+        <a href="{% url 'catalog:shop' %}" class="nav-link">View the Collection →</a>
       </div>
 
-      <a
-        href="{% url 'catalog:shop' %}"
-        class="nav-link"
-      >
-        View the Collection →
-      </a>
+      <div class="product-grid">
+        {% for product in featured_products %}
+          <a class="product-card" href="{% url 'catalog:product_detail' slug=product.handle %}">
+            <div class="product-media">
+              {% if product.featuredImage %}
+                <img src="{{ product.featuredImage.url }}" alt="{{ product.featuredImage.altText|default:product.title }}" class="product-img" loading="lazy" />
+              {% else %}
+                <div class="img-placeholder">Image coming soon</div>
+              {% endif %}
+            </div>
 
-    </div>
+            <div class="product-meta">
+              <h3 class="product-title">{{ product.title }}</h3>
 
+              {% if product.selectedOrFirstAvailableVariant %}
+                <p class="product-price">£{{ product.selectedOrFirstAvailableVariant.price.amount|floatformat:2 }}</p>
 
-    <div class="product-grid">
-
-      {% for product in featured_products %}
-
-        <a
-          class="product-card"
-          href="{% url 'catalog:product_detail' slug=product.handle %}"
-        >
-
-          <div class="product-media">
-
-            {% if product.featuredImage %}
-
-              <img
-                src="{{ product.featuredImage.url }}"
-                alt="{{ product.featuredImage.altText|default:product.title }}"
-                class="product-img"
-                loading="lazy"
-              >
-
-            {% else %}
-
-              <div class="img-placeholder">
-                Image coming soon
-              </div>
-
-            {% endif %}
-
-          </div>
-
-
-          <div class="product-meta">
-
-            <h3 class="product-title">
-              {{ product.title }}
-            </h3>
-
-
-            {% if product.selectedOrFirstAvailableVariant %}
-
-              <p class="product-price">
-                £{{ product.selectedOrFirstAvailableVariant.price.amount|floatformat:2 }}
-              </p>
-
-
-              <div class="product-card__footer">
-
-                {% if product.selectedOrFirstAvailableVariant.availableForSale %}
-
-                  <span class="product-availability">
-                    Available
-                  </span>
-
-                {% else %}
-
-                  <span class="product-sold">
-                    Sold
-                  </span>
-
-                {% endif %}
-
-
-                {% for option in product.selectedOrFirstAvailableVariant.selectedOptions %}
-
-                  {% if option.name|lower == "size" %}
-
-                    <span class="product-card__size">
-                      Size {{ option.value }}
-                    </span>
-
+                <div class="product-card__footer">
+                  {% if product.selectedOrFirstAvailableVariant.availableForSale %}
+                    <span class="product-availability">Available</span>
+                  {% else %}
+                    <span class="product-sold">Sold</span>
                   {% endif %}
 
-                {% endfor %}
-
-              </div>
-
-            {% endif %}
-
-          </div>
-
-        </a>
-
-      {% endfor %}
-
-    </div>
-
-  </section>
-
-{% endif %}
-
+                  {% for option in product.selectedOrFirstAvailableVariant.selectedOptions %}
+                    {% if option.name|lower == 'size' %}
+                      <span class="product-card__size">Size {{ option.value }}</span>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              {% endif %}
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
 {% endblock %}
